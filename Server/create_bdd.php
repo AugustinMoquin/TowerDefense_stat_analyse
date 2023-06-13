@@ -198,6 +198,20 @@ if (mysqli_query($connexion, $sql_create_historique_table)) {
 } else {
     echo "Erreur lors de la création de la table 'discussion_historique' : " . mysqli_error($connexion);
 }
+//___________Relation ________
+$sql_create_message_table ="CREATE TABLE Relations(
+    ID_Relations INT PRIMARY KEY,
+    ID_joueur INT,
+    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID),
+)";
+
+if (mysqli_query($connexion,$sql_create_message_table)){
+    echo "Table ' Relations' crée";
+}else {
+    echo "Erreur lors de la création de la table 'Relations' " . mysqli_error($connexion);
+}
+
+
 // Fermer la connexion à la base de données
 mysqli_close($connexion);
 ?>
