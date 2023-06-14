@@ -1,8 +1,8 @@
 <?php
 // Informations de connexion à la base de données
-$hostname = "127.0.0.1"; // Remplacez par l'hôte de votre serveur MySQL
+$hostname = "localhost"; // Remplacez par l'hôte de votre serveur MySQL
 $username = "root"; // Remplacez par votre nom d'utilisateur MySQL
-$password = ""; // Remplacez par votre mot de passe MySQL
+$password = "root"; // Remplacez par votre mot de passe MySQL
 
 // Établir une connexion à la base de données
 $connexion = mysqli_connect($hostname, $username, $password);
@@ -14,12 +14,12 @@ if (!$connexion) {
 
 // Créer la base de données
 $database = "tower_defense"; // Remplacez par le nom de votre base de données
-$sql_create_db = "CREATE DATABASE $database";
-if (mysqli_query($connexion, $sql_create_db)) {
-    echo "Base de données créée avec succès !";
-} else {
-    echo "Erreur lors de la création de la base de données : " . mysqli_error($connexion);
-}
+// $sql_create_db = "CREATE DATABASE $database";
+// if (mysqli_query($connexion, $sql_create_db)) {
+//     echo "Base de données créée avec succès !";
+// } else {
+//     echo "Erreur lors de la création de la base de données : " . mysqli_error($connexion);
+// }
 
 // Sélectionner la base de données nouvellement créée
 mysqli_select_db($connexion, $database);
@@ -40,7 +40,8 @@ if (mysqli_query($connexion, $sql_create_table)) {
     echo "Erreur lors de la création de la table 'joueur' : " . mysqli_error($connexion);
 }
 // table "Statistiques du joueur"
-$sql_create_statistiques_table = "CREATE TABLE statistiques_joueur (
+$sql_create_statistiques_table = 
+    "CREATE TABLE statistiques_joueur (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     FOREIGN KEY (ID_joueur) REFERENCES joueur(ID),
     ID_historique ,
