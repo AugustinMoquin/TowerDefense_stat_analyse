@@ -1,8 +1,8 @@
 <?php
 // Informations de connexion à la base de données
-$hostname = "localhost"; // Remplacez par l'hôte de votre serveur MySQL
-$username = "votre_nom_d_utilisateur"; // Remplacez par votre nom d'utilisateur MySQL
-$password = "votre_mot_de_passe"; // Remplacez par votre mot de passe MySQL
+$hostname = "127.0.0.1"; // Remplacez par l'hôte de votre serveur MySQL
+$username = "root"; // Remplacez par votre nom d'utilisateur MySQL
+$password = ""; // Remplacez par votre mot de passe MySQL
 
 // Établir une connexion à la base de données
 $connexion = mysqli_connect($hostname, $username, $password);
