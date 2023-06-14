@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("loaclhost","root","tower_defense");
+$con = mysqli_connect("localhost","root","tower_defense");
 $response = array();
 if ($con){
     $sql = "SHOW TABLES";

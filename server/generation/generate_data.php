@@ -1,8 +1,8 @@
 <?php
 // Informations de connexion à la base de données
-$hostname = "127.0.0.1"; // Remplacez par l'hôte de votre serveur MySQL
+$hostname = "localhost"; // Remplacez par l'hôte de votre serveur MySQL
 $username = "root"; // Remplacez par votre nom d'utilisateur MySQL
-$password = ""; // Remplacez par votre mot de passe MySQL
+$password = "root"; // Remplacez par votre mot de passe MySQL
 $database = "tower_defense"; 
 
 //connexion à la base de données
