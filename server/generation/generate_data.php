@@ -249,6 +249,14 @@ if (mysqli_query($connexion, $sql_insert_commentaire)) {
 } else {
     echo "Erreur lors de l'insertion des données dans la table 'commentaire' : " . mysqli_error($connexion);
 }
+//  table "message"
+$messageData = generateRandomMessageData($joueurID);
+$sql_insert_message = "INSERT INTO message (ID_message, timestamp, ID_joueur, contenu) VALUES ('".$messageData['ID_message']."', '".$messageData['timestamp']."', '".$messageData['ID_joueur']."', '".$messageData['contenu']."')";
+if (mysqli_query($connexion, $sql_insert_message)) {
+    echo "Données insérées avec succès dans la table 'message' !\n";
+} else {
+    echo "Erreur lors de l'insertion des données dans la table 'message' : " . mysqli_error($connexion);
+}
 
 // la table "discussion_mp"
 $discussionMPData = generateRandomDiscussionMPData($joueurID, $joueurID + 1);
@@ -259,14 +267,7 @@ if (mysqli_query($connexion, $sql_insert_discussion_mp)) {
     echo "Erreur lors de l'insertion des données dans la table 'discussion_mp' : " . mysqli_error($connexion);
 }
 
-//  table "message"
-$messageData = generateRandomMessageData($joueurID);
-$sql_insert_message = "INSERT INTO message (ID_message, timestamp, ID_joueur, contenu) VALUES ('".$messageData['ID_message']."', '".$messageData['timestamp']."', '".$messageData['ID_joueur']."', '".$messageData['contenu']."')";
-if (mysqli_query($connexion, $sql_insert_message)) {
-    echo "Données insérées avec succès dans la table 'message' !\n";
-} else {
-    echo "Erreur lors de l'insertion des données dans la table 'message' : " . mysqli_error($connexion);
-}
+
 
 //  table "discussion_historique"
 $discussionHistoriqueData = generateRandomDiscussionHistoriqueData($discussionMPData['ID_discussion']);
