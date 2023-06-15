@@ -12,16 +12,17 @@ if (isset($POST['register_form'])){
         $passwd2hash = sha1($_POST['password2']);
         $usernamelength = strlen($username);
         $passwdlength = strlen($password);
+        $test=Validation($passwd,$passwdlength);
         if ($usernamelength <= 50) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $requser= $bdd->prepare("SELECT * FROM joueur WHERE username = ?");
+                $requser= $bdd->prepare("SELECT * FROM user WHERE username = ?");
                 $requser->execute(array($username));
                 $userexist = $requser->rowCount();
                 if ($userexist==0) {
                     if ($passwd == $passwd2) {
                         if ($passwdlength >=3 ) {  
                             if ($test==4) {
-                                $insertmbr = $bdd->prepare("INSERT INTO users(email,username,passwd) VALUES(?,?,?)");
+                                $insertmbr = $bdd->prepare("INSERT INTO users(email,username,mdp) VALUES(?,?,?)");
                                 $insertmbr->execute(array($email,$username,$passwdhash));
                                 $message = "Votre compte a bien était créé";
                             }else {
