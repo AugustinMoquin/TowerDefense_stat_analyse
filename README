@@ -4,4 +4,19 @@ je m'occupe du front du site pour le moment
 ok chef au travail !
 
 
-mdp password root ( php my admin) : augustinmoquin
+mdp password root ( php my admin) : root
+
+yann :
+ -creation bdd et api 
+ -generation de données
+ -panel admin (crud)
+ -hash psswd
+
+augustin :
+ -login register
+ -sessions
+ -chat
+ -forum
+ -redirection url
+ -demandes d'amis
+
