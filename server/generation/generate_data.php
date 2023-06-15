@@ -29,16 +29,16 @@ function generateUniqueID($table, $column)
     return $id;
 }
 
-//  données aléatoires pour  table "joueur"
-function generateRandomJoueurData()
+//  données aléatoires pour  table "userr"
+function generateRandomUserData()
 {
-    $nametag = "Player" . rand(1, 1000);
+    $user_name = "Player" . rand(1, 1000);
     $mdp = "password" . rand(1, 1000);
-    $email = $nametag . "@example.com";
+    $email = $user_name . "@example.com";
     $tel = "123456789";
     $photo_profil = "profile.jpg"; // Chemin vers une image de profil par défaut
     return [
-        "nametag" => $nametag,
+        "user_name" => $user_name,
         "mdp" => $mdp,
         "email" => $email,
         "tel" => $tel,
@@ -47,7 +47,7 @@ function generateRandomJoueurData()
 }
 
 // données aléatoires pour table "statistiques_joueur"
-function generateRandomStatistiquesJoueurData($joueurID)
+function generateRandomStatistiquesJoueurData($userID)
 {
     $parties_jouees_total = rand(2, 100);
     $nombre_vagues_totales = rand(2, 50);
@@ -60,7 +60,7 @@ function generateRandomStatistiquesJoueurData($joueurID)
     $tune_totale = rand(2, 100000);
     $score = rand(2, 10000);
     return [
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "parties_jouees_total" => $parties_jouees_total,
         "nombre_vagues_totales" => $nombre_vagues_totales,
         "nombre_vague_maximale" => $nombre_vague_maximale,
@@ -75,7 +75,7 @@ function generateRandomStatistiquesJoueurData($joueurID)
 }
 
 //   données aléatoires pourtable "partie_lambda"
-function generateRandomPartieLambdaData($joueurID)
+function generateRandomPartieLambdaData($userID)
 {
     $parties_jouees = rand(1, 100);
     $nombre_vagues_totales = rand(1, 50);
@@ -87,7 +87,7 @@ function generateRandomPartieLambdaData($joueurID)
     $tune_totale = rand(1, 100000);
     $score = rand(1, 10000);
     return [
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "parties_jouees" => $parties_jouees,
         "nombre_vagues_totales" => $nombre_vagues_totales,
         "nombre_monstre_total" => $nombre_monstre_total,
@@ -101,7 +101,7 @@ function generateRandomPartieLambdaData($joueurID)
 }
 
 // données aléatoires pour table "historique_parties"
-function generateRandomHistoriquePartiesData($partieID, $joueurID)
+function generateRandomHistoriquePartiesData($partieID, $userID)
 {
     $nombre_vagues_totales = rand(2, 50);
     $nombre_monstre_total = rand(2, 1000);
@@ -114,7 +114,7 @@ function generateRandomHistoriquePartiesData($partieID, $joueurID)
     return [
         "ID_historique" => generateUniqueID('historique_parties', 'ID_historique'),
         "ID_partie" => $partieID,
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "nombre_vagues_totales" => $nombre_vagues_totales,
         "nombre_monstre_total" => $nombre_monstre_total,
         "monstres_tues_individuel" => $monstres_tues_individuel,
@@ -127,14 +127,14 @@ function generateRandomHistoriquePartiesData($partieID, $joueurID)
 }
 
 //  données aléatoires pourtable "post"
-function generateRandomPostData($joueurID)
+function generateRandomPostData($userID)
 {
     $post = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
     $commentaire = rand(10, 10);
     $titre = "Titre du post " . rand(10, 100);
     $timestamp = date("Y-m-d H:i:s");
     return [
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "Post" => $post,
         "Commentaire" => $commentaire,
         "Titre" => $titre,
@@ -143,12 +143,12 @@ function generateRandomPostData($joueurID)
 }
 
 // données aléatoires pour  table "commentaire"
-function generateRandomCommentaireData($joueurID, $postID)
+function generateRandomCommentaireData($userID, $postID)
 {
     $commentaire = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
     $timestamp = date("Y-m-d H:i:s");
     return [
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "ID_post" => $postID,
         "Commentaire" => $commentaire,
         "Timestamp" => $timestamp
@@ -156,20 +156,20 @@ function generateRandomCommentaireData($joueurID, $postID)
 }
 
 //   données aléatoires  table "discussion_mp"
-function generateRandomDiscussionMPData($joueur1ID, $joueur2ID)
+function generateRandomDiscussionMPData($user1ID, $user2ID)
 {
     $discussionID = generateUniqueID('discussion_mp', 'ID_discussion');
     $messageID = rand(1, 100);
     return [
-        "ID_joueur1" => $joueur1ID,
-        "ID_joueur2" => $joueur2ID,
+        "ID_user1" => $user1ID,
+        "ID_user2" => $user2ID,
         "ID_discussion" => $discussionID,
         "ID_message" => $messageID
     ];
 }
 
 // données aléatoires pour  "message"
-function generateRandomMessageData($joueurID)
+function generateRandomMessageData($userID)
 {
     $messageID = rand(1, 100);
     $timestamp = date("Y-m-d H:i:s");
@@ -177,7 +177,7 @@ function generateRandomMessageData($joueurID)
     return [
         "ID_message" => $messageID,
         "timestamp" => $timestamp,
-        "ID_joueur" => $joueurID,
+        "ID_user" => $userID,
         "contenu" => $contenu
     ];
 }
@@ -196,24 +196,24 @@ function generateRandomDiscussionHistoriqueData($discussionID)
 // nombre de row à insérer
 $numRows = 3;
 for ($i = 0; $i < $numRows; $i++) {
-    // la table "joueur"
-    $joueurData = generateRandomJoueurData();
-    $sql_insert_joueur = "INSERT INTO joueur (NameTag, mdp, email, tel, photo_profil) VALUES (?, ?, ?, ?, ?)";
-    $stmt_joueur = mysqli_prepare($connexion, $sql_insert_joueur);
-    mysqli_stmt_bind_param($stmt_joueur, "sssss", $joueurData['nametag'], $joueurData['mdp'], $joueurData['email'], $joueurData['tel'], $joueurData['photo_profil']);
-    if (mysqli_stmt_execute($stmt_joueur)) {
-        echo "Données insérées avec succès dans la table 'joueur' !\n";
+    // la table "user"
+    $UserData = generateRandomUserData();
+    $sql_insert_user = "INSERT INTO user (user_name, mdp, email, tel, photo_profil) VALUES (?, ?, ?, ?, ?)";
+    $stmt_user = mysqli_prepare($connexion, $sql_insert_user);
+    mysqli_stmt_bind_param($stmt_user, "sssss", $userData['user_name'], $userData['mdp'], $userData['email'], $userData['tel'], $userData['photo_profil']);
+    if (mysqli_stmt_execute($stmt_user)) {
+        echo "Données insérées avec succès dans la table 'user' !\n";
     } else {
-        echo "Erreur lors de l'insertion des données dans la table 'joueur' : " . mysqli_error($connexion);
+        echo "Erreur lors de l'insertion des données dans la table 'user' : " . mysqli_error($connexion);
     }
 
-    $joueurID = mysqli_insert_id($connexion);
+    $userID = mysqli_insert_id($connexion);
 
     // la table "statistiques_joueur"
-    $statistiquesJoueurData = generateRandomStatistiquesJoueurData($joueurID);
-    $sql_insert_statistiques_joueur = "INSERT INTO statistiques_joueur (ID_joueur, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $statistiquesJoueurData = generateRandomStatistiquesJoueurData($userID);
+    $sql_insert_statistiques_joueur = "INSERT INTO statistiques_joueur (ID_user, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_statistiques_joueur = mysqli_prepare($connexion, $sql_insert_statistiques_joueur);
-    mysqli_stmt_bind_param($stmt_statistiques_joueur, "iiiiiiiiiii", $statistiquesJoueurData['ID_joueur'], $statistiquesJoueurData['parties_jouees_total'], $statistiquesJoueurData['nombre_vagues_totales'], $statistiquesJoueurData['nombre_vague_maximale'], $statistiquesJoueurData['nombre_monstre_total'], $statistiquesJoueurData['monstres_tues_individuel'], $statistiquesJoueurData['temps_total_jeu'], $statistiquesJoueurData['tours_construites_total'], $statistiquesJoueurData['tours_individuel_total'], $statistiquesJoueurData['tune_totale'], $statistiquesJoueurData['score']);
+    mysqli_stmt_bind_param($stmt_statistiques_joueur, "iiiiiiiiiii", $statistiquesJoueurData['ID_user'], $statistiquesJoueurData['parties_jouees_total'], $statistiquesJoueurData['nombre_vagues_totales'], $statistiquesJoueurData['nombre_vague_maximale'], $statistiquesJoueurData['nombre_monstre_total'], $statistiquesJoueurData['monstres_tues_individuel'], $statistiquesJoueurData['temps_total_jeu'], $statistiquesJoueurData['tours_construites_total'], $statistiquesJoueurData['tours_individuel_total'], $statistiquesJoueurData['tune_totale'], $statistiquesJoueurData['score']);
     if (mysqli_stmt_execute($stmt_statistiques_joueur)) {
         echo "Données insérées avec succès dans la table 'statistiques_joueur' !\n";
     } else {
@@ -221,10 +221,10 @@ for ($i = 0; $i < $numRows; $i++) {
     }
 
     // la table "partie_lambda"
-    $partieLambdaData = generateRandomPartieLambdaData($joueurID);
-    $sql_insert_partie_lambda = "INSERT INTO partie_lambda (ID_joueur, parties_jouees, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $partieLambdaData = generateRandomPartieLambdaData($userID);
+    $sql_insert_partie_lambda = "INSERT INTO partie_lambda (ID_user, parties_jouees, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_partie_lambda = mysqli_prepare($connexion, $sql_insert_partie_lambda);
-    mysqli_stmt_bind_param($stmt_partie_lambda, "iiiiiiiiii", $partieLambdaData['ID_joueur'], $partieLambdaData['parties_jouees'], $partieLambdaData['nombre_vagues_totales'], $partieLambdaData['nombre_monstre_total'], $partieLambdaData['monstres_tues_individuel'], $partieLambdaData['temps_total_partie'], $partieLambdaData['tours_construites_total'], $partieLambdaData['tours_individuel_total'], $partieLambdaData['tune_totale'], $partieLambdaData['score']);
+    mysqli_stmt_bind_param($stmt_partie_lambda, "iiiiiiiiii", $partieLambdaData['ID_user'], $partieLambdaData['parties_jouees'], $partieLambdaData['nombre_vagues_totales'], $partieLambdaData['nombre_monstre_total'], $partieLambdaData['monstres_tues_individuel'], $partieLambdaData['temps_total_partie'], $partieLambdaData['tours_construites_total'], $partieLambdaData['tours_individuel_total'], $partieLambdaData['tune_totale'], $partieLambdaData['score']);
     if (mysqli_stmt_execute($stmt_partie_lambda)) {
         echo "Données insérées avec succès dans la table 'partie_lambda' !\n";
     } else {
@@ -234,8 +234,8 @@ for ($i = 0; $i < $numRows; $i++) {
     $partieID = mysqli_insert_id($connexion);
 
     // la table "historique_parties"
-    $historiquePartiesData = generateRandomHistoriquePartiesData($partieID, $joueurID);
-    $sql_insert_historique_parties = "INSERT INTO historique_parties (ID_historique, ID_partie, ID_joueur, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $historiquePartiesData = generateRandomHistoriquePartiesData($partieID, $userID);
+    $sql_insert_historique_parties = "INSERT INTO historique_parties (ID_historique, ID_partie, ID_user, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_historique_parties = mysqli_prepare($connexion, $sql_insert_historique_parties);
     mysqli_stmt_bind_param($stmt_historique_parties, "iiiiiiiiiii", $historiquePartiesData['ID_historique'], $historiquePartiesData['ID_partie'], $historiquePartiesData['ID_joueur'], $historiquePartiesData['nombre_vagues_totales'], $historiquePartiesData['nombre_monstre_total'], $historiquePartiesData['monstres_tues_individuel'], $historiquePartiesData['temps_total_partie'], $historiquePartiesData['tours_construites_total'], $historiquePartiesData['tours_individuel_total'], $historiquePartiesData['tune_totale'], $historiquePartiesData['score']);
     if (mysqli_stmt_execute($stmt_historique_parties)) {
@@ -245,10 +245,10 @@ for ($i = 0; $i < $numRows; $i++) {
     }
 
     // table "post"
-    $postData = generateRandomPostData($joueurID);
-    $sql_insert_post = "INSERT INTO post (ID_joueur, Post, Commentaire, Titre, Timestamp) VALUES (?, ?, ?, ?, ?)";
+    $postData = generateRandomPostData($userID);
+    $sql_insert_post = "INSERT INTO post (ID_user, Post, Commentaire, Titre, Timestamp) VALUES (?, ?, ?, ?, ?)";
     $stmt_post = mysqli_prepare($connexion, $sql_insert_post);
-    mysqli_stmt_bind_param($stmt_post, "issss", $postData['ID_joueur'], $postData['Post'], $postData['Commentaire'], $postData['Titre'], $postData['Timestamp']);
+    mysqli_stmt_bind_param($stmt_post, "issss", $postData['ID_user'], $postData['Post'], $postData['Commentaire'], $postData['Titre'], $postData['Timestamp']);
     if (mysqli_stmt_execute($stmt_post)) {
         echo "Données insérées avec succès dans la table 'post' !\n";
     } else {
@@ -258,20 +258,20 @@ for ($i = 0; $i < $numRows; $i++) {
     $postID = mysqli_insert_id($connexion);
 
     //  table "commentaire"
-    $commentaireData = generateRandomCommentaireData($joueurID, $postID);
-    $sql_insert_commentaire = "INSERT INTO commentaire (ID_joueur, ID_post, Commentaire, Timestamp) VALUES (?, ?, ?, ?)";
+    $commentaireData = generateRandomCommentaireData($userID, $postID);
+    $sql_insert_commentaire = "INSERT INTO commentaire (ID_user, ID_post, Commentaire, Timestamp) VALUES (?, ?, ?, ?)";
     $stmt_commentaire = mysqli_prepare($connexion, $sql_insert_commentaire);
-    mysqli_stmt_bind_param($stmt_commentaire, "iiss", $commentaireData['ID_joueur'], $commentaireData['ID_post'], $commentaireData['Commentaire'], $commentaireData['Timestamp']);
+    mysqli_stmt_bind_param($stmt_commentaire, "iiss", $commentaireData['ID_user'], $commentaireData['ID_post'], $commentaireData['Commentaire'], $commentaireData['Timestamp']);
     if (mysqli_stmt_execute($stmt_commentaire)) {
         echo "Données insérées avec succès dans la table 'commentaire' !\n";
     } else {
         echo "Erreur lors de l'insertion des données dans la table 'commentaire' : " . mysqli_error($connexion);
     }
     //  table "message"
-    $messageData = generateRandomMessageData($joueurID);
-    $sql_insert_message = "INSERT INTO _message (ID_message, timestamp, ID_joueur, contenu) SELECT ?, ?, ?, ? FROM joueur WHERE ID_joueur = ?";                  
+    $messageData = generateRandomMessageData($userID);
+    $sql_insert_message = "INSERT INTO _message (ID_message, timestamp, ID_user, contenu) SELECT ?, ?, ?, ? FROM user WHERE ID_user = ?";                  
     $stmt_message = mysqli_prepare($connexion, $sql_insert_message);
-    mysqli_stmt_bind_param($stmt_message, "issis", $messageData['ID_message'], $messageData['timestamp'], $messageData['ID_joueur'], $messageData['contenu'], $messageData['ID_joueur']);
+    mysqli_stmt_bind_param($stmt_message, "issis", $messageData['ID_message'], $messageData['timestamp'], $messageData['ID_user'], $messageData['contenu'], $messageData['ID_user']);
     if (mysqli_stmt_execute($stmt_message)) {
         echo "Données insérées avec succès dans la table 'message' !\n";
     } else {
@@ -279,10 +279,10 @@ for ($i = 0; $i < $numRows; $i++) {
     }
 
     // la table "discussion_mp"
-    $discussionMPData = generateRandomDiscussionMPData($joueurID, $joueurID + 1);
-    $sql_insert_discussion_mp = "INSERT INTO discussion_mp (ID_joueur1, ID_joueur2, ID_discussion, ID_message) SELECT ?, ?, ?, ? FROM joueur WHERE ID_joueur = ? AND EXISTS (SELECT ID_joueur FROM joueur WHERE ID_joueur = ?)";
+    $discussionMPData = generateRandomDiscussionMPData($userID, $userID + 1);
+    $sql_insert_discussion_mp = "INSERT INTO discussion_mp (ID_user1, ID_user2, ID_discussion, ID_message) SELECT ?, ?, ?, ? FROM user WHERE ID_user = ? AND EXISTS (SELECT ID_user FROM user WHERE ID_user = ?)";
     $stmt_discussion_mp = mysqli_prepare($connexion, $sql_insert_discussion_mp);
-    mysqli_stmt_bind_param($stmt_discussion_mp, "iiiiii", $discussionMPData['ID_joueur1'], $discussionMPData['ID_joueur2'], $discussionMPData['ID_discussion'], $discussionMPData['ID_message'], $discussionMPData['ID_joueur1'], $discussionMPData['ID_joueur2']);
+    mysqli_stmt_bind_param($stmt_discussion_mp, "iiiiii", $discussionMPData['ID_user1'], $discussionMPData['ID_user2'], $discussionMPData['ID_discussion'], $discussionMPData['ID_message'], $discussionMPData['ID_user1'], $discussionMPData['ID_user2']);
     if (mysqli_stmt_execute($stmt_discussion_mp)) {
         echo "Données insérées avec succès dans la table 'discussion_mp' !\n";
     } else {

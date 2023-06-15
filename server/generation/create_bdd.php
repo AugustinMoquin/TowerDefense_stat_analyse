@@ -25,9 +25,9 @@ $database = "tower_defense"; // Remplacez par le nom de votre base de données
 mysqli_select_db($connexion, $database);
 
 // ____________________GAMING PARTIE_________________________________________
-$sql_create_table = "CREATE TABLE IF NOT EXISTS joueur (
-    ID_joueur INT AUTO_INCREMENT PRIMARY KEY,
-    NameTag VARCHAR(255),
+$sql_create_table = "CREATE TABLE IF NOT EXISTS user (
+    ID_user INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(255),
     mdp VARCHAR(255),
     email VARCHAR(255),
     tel VARCHAR(20),
@@ -35,17 +35,17 @@ $sql_create_table = "CREATE TABLE IF NOT EXISTS joueur (
 )";
 
 if (mysqli_query($connexion, $sql_create_table)) {
-    echo "Table 'joueur' créée avec succès!";
+    echo "Table 'user' créée avec succès!";
 } else {
-    echo "Erreur lors de la création de la table 'joueur': " . mysqli_error($connexion);
+    echo "Erreur lors de la création de la table 'user': " . mysqli_error($connexion);
 }
 
 
 //  table "Partie Lambda"
 $sql_create_partie_table = "CREATE TABLE IF NOT EXISTS partie_lambda (
     ID_partie INT AUTO_INCREMENT PRIMARY KEY,
-    ID_joueur INT,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur),
+    ID_user INT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     parties_jouees INT,
     nombre_vagues_totales INT,
     nombre_monstre_total INT,
@@ -68,8 +68,8 @@ $sql_create_historique_table = "CREATE TABLE IF NOT EXISTS historique_parties (
     ID_historique INT PRIMARY KEY,
     ID_partie INT,
     FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie),
-    ID_joueur INT,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur),
+    ID_user INT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     nombre_vagues_totales INT,
     nombre_monstre_total INT,
     monstres_tues_individuel INT,
@@ -87,10 +87,10 @@ if (mysqli_query($connexion, $sql_create_historique_table)) {
 }
 
 // table "Statistiques du joueur"
-$sql_create_statistiques_table = "CREATE TABLE IF NOT EXISTS statistiques_joueur (
+$sql_create_statistiques_table = "CREATE TABLE IF NOT EXISTS statistiques_user (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    ID_joueur INT,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur),
+    ID_user INT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     ID_historique INT,
     FOREIGN KEY (ID_historique) REFERENCES historique_parties(ID_historique),
     parties_jouees_total INT,
@@ -106,21 +106,21 @@ $sql_create_statistiques_table = "CREATE TABLE IF NOT EXISTS statistiques_joueur
 )";
 
 if (mysqli_query($connexion, $sql_create_statistiques_table)) {
-    echo "Table 'statistiques_joueur' créée avec succès!";
+    echo "Table 'statistiques_user' créée avec succès!";
 } else {
-    echo "Erreur lors de la création de la table 'statistiques_joueur': " . mysqli_error($connexion);
+    echo "Erreur lors de la création de la table 'statistiques_user': " . mysqli_error($connexion);
 }
 
 //_______________________Forum Partie________________
 // table "post" 
 $sql_create_post_table = "CREATE TABLE IF NOT EXISTS post (
     ID_post INT AUTO_INCREMENT PRIMARY KEY,
-    ID_joueur INT,
+    ID_user INT,
     Post VARCHAR(255),
     Commentaire VARCHAR(255),
     Titre VARCHAR(255),
     Timestamp TIMESTAMP,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur)
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user)
 )";
 
 if (mysqli_query($connexion, $sql_create_post_table)) {
@@ -133,11 +133,11 @@ if (mysqli_query($connexion, $sql_create_post_table)) {
 // table "commentaire" 
 $sql_create_commentaire_table = "CREATE TABLE IF NOT EXISTS commentaire (
     ID_commentaire INT AUTO_INCREMENT PRIMARY KEY,
-    ID_joueur INT,
+    ID_user INT,
     ID_post INT,
     Commentaire VARCHAR(255),
     Timestamp TIMESTAMP,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur),
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     FOREIGN KEY (ID_post) REFERENCES post(ID_post)
 )";
 
@@ -167,8 +167,8 @@ if (mysqli_query($connexion, $sql_create_forum_table)) {
 $sql_create_message_table = "CREATE TABLE IF NOT EXISTS _message (
     ID_message INT AUTO_INCREMENT PRIMARY KEY,
     timestamp TIMESTAMP,
-    ID_joueur INT,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur),
+    ID_user INT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     contenu VARCHAR(255)
 )";
 
@@ -179,10 +179,10 @@ if (mysqli_query($connexion, $sql_create_message_table)) {
 }
 //  table "Discussion MP"
 $sql_create_discussion_table = "CREATE TABLE IF NOT EXISTS discussion_mp (
-    ID_joueur1 INT,
-    FOREIGN KEY (ID_joueur1) REFERENCES joueur(ID_joueur),
-    ID_joueur2 INT,
-    FOREIGN KEY (ID_joueur2) REFERENCES joueur(ID_joueur),
+    ID_user1 INT,
+    FOREIGN KEY (ID_user1) REFERENCES user(ID_user),
+    ID_user2 INT,
+    FOREIGN KEY (ID_user2) REFERENCES user(ID_user),
     ID_discussion INT AUTO_INCREMENT PRIMARY KEY,
     ID_message INT,
     FOREIGN KEY (ID_message) REFERENCES _message(ID_message)
@@ -211,8 +211,8 @@ if (mysqli_query($connexion, $sql_create_historique_table)) {
 //___________Relation ________
 $sql_create_message_table = "CREATE TABLE IF NOT EXISTS Relations(
     ID_Relations INT AUTO_INCREMENT PRIMARY KEY,
-    ID_joueur INT,
-    FOREIGN KEY (ID_joueur) REFERENCES joueur(ID_joueur)
+    ID_user INT,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user)
 )";
 
 if (mysqli_query($connexion, $sql_create_message_table)) {
