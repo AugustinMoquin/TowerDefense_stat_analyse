@@ -209,15 +209,15 @@ for ($i = 0; $i < $numRows; $i++) {
 
     $userID = mysqli_insert_id($connexion);
 
-    // la table "statistiques_joueur"
-    $statistiquesJoueurData = generateRandomStatistiquesJoueurData($userID);
-    $sql_insert_statistiques_joueur = "INSERT INTO statistiques_joueur (ID_user, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt_statistiques_joueur = mysqli_prepare($connexion, $sql_insert_statistiques_joueur);
-    mysqli_stmt_bind_param($stmt_statistiques_joueur, "iiiiiiiiiii", $statistiquesJoueurData['ID_user'], $statistiquesJoueurData['parties_jouees_total'], $statistiquesJoueurData['nombre_vagues_totales'], $statistiquesJoueurData['nombre_vague_maximale'], $statistiquesJoueurData['nombre_monstre_total'], $statistiquesJoueurData['monstres_tues_individuel'], $statistiquesJoueurData['temps_total_jeu'], $statistiquesJoueurData['tours_construites_total'], $statistiquesJoueurData['tours_individuel_total'], $statistiquesJoueurData['tune_totale'], $statistiquesJoueurData['score']);
-    if (mysqli_stmt_execute($stmt_statistiques_joueur)) {
-        echo "Données insérées avec succès dans la table 'statistiques_joueur' !\n";
+    // la table "statistiques_user"
+    $statistiquesUserData = generateRandomStatistiquesJoueurData($userID);
+    $sql_insert_statistiques_user = "INSERT INTO statistiques_user (ID_user, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_statistiques_user = mysqli_prepare($connexion, $sql_insert_statistiques_user);
+    mysqli_stmt_bind_param($stmt_statistiques_user, "iiiiiiiiiii", $statistiquesUserData['ID_user'], $statistiquesUserData['parties_jouees_total'], $statistiquesUserData['nombre_vagues_totales'], $statistiquesUserData['nombre_vague_maximale'], $statistiquesUserData['nombre_monstre_total'], $statistiquesUserData['monstres_tues_individuel'], $statistiquesUserData['temps_total_jeu'], $statistiquesUserData['tours_construites_total'], $statistiquesUserData['tours_individuel_total'], $statistiquesUserData['tune_totale'], $statistiquesUserData['score']);
+    if (mysqli_stmt_execute($stmt_statistiques_user)) {
+        echo "Données insérées avec succès dans la table 'statistiques_user' !\n";
     } else {
-        echo "Erreur lors de l'insertion des données dans la table 'statistiques_joueur' : " . mysqli_error($connexion);
+        echo "Erreur lors de l'insertion des données dans la table 'statistiques_user' : " . mysqli_error($connexion);
     }
 
     // la table "partie_lambda"
