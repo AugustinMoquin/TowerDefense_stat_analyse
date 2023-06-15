@@ -46,7 +46,7 @@ function generateRandomUserData()
     ];
 }
 
-// données aléatoires pour table "statistiques_joueur"
+// Random data for "statistiques_user" table
 function generateRandomStatistiquesJoueurData($userID)
 {
     $parties_jouees_total = rand(2, 100);
@@ -59,6 +59,12 @@ function generateRandomStatistiquesJoueurData($userID)
     $tours_individuel_total = rand(2, 100);
     $tune_totale = rand(2, 100000);
     $score = rand(2, 10000);
+    
+    //  random duration (1 minute - 1 heure)
+    $duration = rand(60, 3600); 
+
+    
+    $win = (bool)rand(0, 1);
     return [
         "ID_user" => $userID,
         "parties_jouees_total" => $parties_jouees_total,
@@ -70,11 +76,13 @@ function generateRandomStatistiquesJoueurData($userID)
         "tours_construites_total" => $tours_construites_total,
         "tours_individuel_total" => $tours_individuel_total,
         "tune_totale" => $tune_totale,
-        "score" => $score
+        "score" => $score,
+        "duree_jeu" => $duration,
+        "win" => $win
     ];
 }
 
-//   données aléatoires pourtable "partie_lambda"
+// Random data for "partie_lambda" table
 function generateRandomPartieLambdaData($userID)
 {
     $parties_jouees = rand(1, 100);
@@ -86,6 +94,12 @@ function generateRandomPartieLambdaData($userID)
     $tours_individuel_total = rand(1, 100);
     $tune_totale = rand(1, 100000);
     $score = rand(1, 10000);
+    
+   //  random duration (1 minute - 1 heure)
+   $duration = rand(60, 3600); 
+
+   
+    $win = (bool)rand(0, 1);
     return [
         "ID_user" => $userID,
         "parties_jouees" => $parties_jouees,
@@ -96,11 +110,13 @@ function generateRandomPartieLambdaData($userID)
         "tours_construites_total" => $tours_construites_total,
         "tours_individuel_total" => $tours_individuel_total,
         "tune_totale" => $tune_totale,
-        "score" => $score
+        "score" => $score,
+        "duree_jeu" => $duration,
+        "win" => $win
     ];
 }
 
-// données aléatoires pour table "historique_parties"
+// Random data for "historique_parties" table
 function generateRandomHistoriquePartiesData($partieID, $userID)
 {
     $nombre_vagues_totales = rand(2, 50);
@@ -111,6 +127,12 @@ function generateRandomHistoriquePartiesData($partieID, $userID)
     $tours_individuel_total = rand(2, 100);
     $tune_totale = rand(2, 100000);
     $score = rand(2, 10000);
+    
+    //  random duration (1 minute - 1 heure)
+    $duration = rand(60, 3600); 
+
+   
+    $win = (bool)rand(0, 1);
     return [
         "ID_historique" => generateUniqueID('historique_parties', 'ID_historique'),
         "ID_partie" => $partieID,
@@ -122,9 +144,12 @@ function generateRandomHistoriquePartiesData($partieID, $userID)
         "tours_construites_total" => $tours_construites_total,
         "tours_individuel_total" => $tours_individuel_total,
         "tune_totale" => $tune_totale,
-        "score" => $score
+        "score" => $score,
+        "duree_jeu" => $duration,
+        "win" => $win
     ];
 }
+
 
 //  données aléatoires pourtable "post"
 function generateRandomPostData($userID)
@@ -197,7 +222,7 @@ function generateRandomDiscussionHistoriqueData($discussionID)
 $numRows = 3;
 for ($i = 0; $i < $numRows; $i++) {
     // la table "user"
-    $UserData = generateRandomUserData();
+    $serData = generateRandomUserData();
     $sql_insert_user = "INSERT INTO user (user_name, mdp, email, tel, photo_profil) VALUES (?, ?, ?, ?, ?)";
     $stmt_user = mysqli_prepare($connexion, $sql_insert_user);
     mysqli_stmt_bind_param($stmt_user, "sssss", $userData['user_name'], $userData['mdp'], $userData['email'], $userData['tel'], $userData['photo_profil']);
@@ -211,9 +236,10 @@ for ($i = 0; $i < $numRows; $i++) {
 
     // la table "statistiques_user"
     $statistiquesUserData = generateRandomStatistiquesJoueurData($userID);
-    $sql_insert_statistiques_user = "INSERT INTO statistiques_user (ID_user, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_insert_statistiques_user = "INSERT INTO statistiques_user (ID_user, parties_jouees_total, nombre_vagues_totales, nombre_vague_maximale, nombre_monstre_total, monstres_tues_individuel, temps_total_jeu, tours_construites_total, tours_individuel_total, tune_totale, score, duree_jeu, win) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_statistiques_user = mysqli_prepare($connexion, $sql_insert_statistiques_user);
-    mysqli_stmt_bind_param($stmt_statistiques_user, "iiiiiiiiiii", $statistiquesUserData['ID_user'], $statistiquesUserData['parties_jouees_total'], $statistiquesUserData['nombre_vagues_totales'], $statistiquesUserData['nombre_vague_maximale'], $statistiquesUserData['nombre_monstre_total'], $statistiquesUserData['monstres_tues_individuel'], $statistiquesUserData['temps_total_jeu'], $statistiquesUserData['tours_construites_total'], $statistiquesUserData['tours_individuel_total'], $statistiquesUserData['tune_totale'], $statistiquesUserData['score']);
+    mysqli_stmt_bind_param($stmt_statistiques_user, "iiiiiiiiiiiii", $statistiquesUserData['ID_user'], $statistiquesUserData['parties_jouees_total'], $statistiquesUserData['nombre_vagues_totales'], $statistiquesUserData['nombre_vague_maximale'], $statistiquesUserData['nombre_monstre_total'], $statistiquesUserData['monstres_tues_individuel'], $statistiquesUserData['temps_total_jeu'], $statistiquesUserData['tours_construites_total'], $statistiquesUserData['tours_individuel_total'], $statistiquesUserData['tune_totale'], $statistiquesUserData['score'], $statistiquesUserData['duree_jeu'], $statistiquesUserData['win']);
+
     if (mysqli_stmt_execute($stmt_statistiques_user)) {
         echo "Données insérées avec succès dans la table 'statistiques_user' !\n";
     } else {
@@ -221,10 +247,11 @@ for ($i = 0; $i < $numRows; $i++) {
     }
 
     // la table "partie_lambda"
+    
     $partieLambdaData = generateRandomPartieLambdaData($userID);
-    $sql_insert_partie_lambda = "INSERT INTO partie_lambda (ID_user, parties_jouees, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_insert_partie_lambda = "INSERT INTO partie_lambda (ID_user, parties_jouees, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score, duree_jeu, win) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_partie_lambda = mysqli_prepare($connexion, $sql_insert_partie_lambda);
-    mysqli_stmt_bind_param($stmt_partie_lambda, "iiiiiiiiii", $partieLambdaData['ID_user'], $partieLambdaData['parties_jouees'], $partieLambdaData['nombre_vagues_totales'], $partieLambdaData['nombre_monstre_total'], $partieLambdaData['monstres_tues_individuel'], $partieLambdaData['temps_total_partie'], $partieLambdaData['tours_construites_total'], $partieLambdaData['tours_individuel_total'], $partieLambdaData['tune_totale'], $partieLambdaData['score']);
+    mysqli_stmt_bind_param($stmt_partie_lambda, "iiiiiiiiiiii", $partieLambdaData['ID_user'], $partieLambdaData['parties_jouees'], $partieLambdaData['nombre_vagues_totales'], $partieLambdaData['nombre_monstre_total'], $partieLambdaData['monstres_tues_individuel'], $partieLambdaData['temps_total_partie'], $partieLambdaData['tours_construites_total'], $partieLambdaData['tours_individuel_total'], $partieLambdaData['tune_totale'], $partieLambdaData['score'], $partieLambdaData['duree_jeu'], $partieLambdaData['win']);
     if (mysqli_stmt_execute($stmt_partie_lambda)) {
         echo "Données insérées avec succès dans la table 'partie_lambda' !\n";
     } else {
@@ -235,9 +262,10 @@ for ($i = 0; $i < $numRows; $i++) {
 
     // la table "historique_parties"
     $historiquePartiesData = generateRandomHistoriquePartiesData($partieID, $userID);
-    $sql_insert_historique_parties = "INSERT INTO historique_parties (ID_historique, ID_partie, ID_user, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_insert_historique_parties = "INSERT INTO historique_parties (ID_historique, ID_partie, ID_user, nombre_vagues_totales, nombre_monstre_total, monstres_tues_individuel, temps_total_partie, tours_construites_total, tours_individuel_total, tune_totale, score, duree_jeu, win) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_historique_parties = mysqli_prepare($connexion, $sql_insert_historique_parties);
-    mysqli_stmt_bind_param($stmt_historique_parties, "iiiiiiiiiii", $historiquePartiesData['ID_historique'], $historiquePartiesData['ID_partie'], $historiquePartiesData['ID_joueur'], $historiquePartiesData['nombre_vagues_totales'], $historiquePartiesData['nombre_monstre_total'], $historiquePartiesData['monstres_tues_individuel'], $historiquePartiesData['temps_total_partie'], $historiquePartiesData['tours_construites_total'], $historiquePartiesData['tours_individuel_total'], $historiquePartiesData['tune_totale'], $historiquePartiesData['score']);
+    mysqli_stmt_bind_param($stmt_historique_parties, "iiiiiiiiiiiii", $historiquePartiesData['ID_historique'], $historiquePartiesData['ID_partie'], $historiquePartiesData['ID_user'], $historiquePartiesData['nombre_vagues_totales'], $historiquePartiesData['nombre_monstre_total'], $historiquePartiesData['monstres_tues_individuel'], $historiquePartiesData['temps_total_partie'], $historiquePartiesData['tours_construites_total'], $historiquePartiesData['tours_individuel_total'], $historiquePartiesData['tune_totale'], $historiquePartiesData['score'], $historiquePartiesData['duree_jeu'], $historiquePartiesData['win']);
+    
     if (mysqli_stmt_execute($stmt_historique_parties)) {
         echo "Données insérées avec succès dans la table 'historique_parties' !\n";
     } else {

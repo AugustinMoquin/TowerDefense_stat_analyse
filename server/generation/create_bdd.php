@@ -25,7 +25,7 @@ $database = "tower_defense"; // Remplacez par le nom de votre base de données
 mysqli_select_db($connexion, $database);
 
 // ____________________GAMING PARTIE_________________________________________
-$sql_create_table = "CREATE TABLE IF NOT EXISTS user (
+$sql_create_user_table = "CREATE TABLE IF NOT EXISTS user (
     ID_user INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(255),
     mdp VARCHAR(255),
@@ -34,18 +34,15 @@ $sql_create_table = "CREATE TABLE IF NOT EXISTS user (
     photo_profil VARCHAR(255)
 )";
 
-if (mysqli_query($connexion, $sql_create_table)) {
+if (mysqli_query($connexion, $sql_create_user_table)) {
     echo "Table 'user' créée avec succès!";
 } else {
     echo "Erreur lors de la création de la table 'user': " . mysqli_error($connexion);
 }
 
-
-//  table "Partie Lambda"
 $sql_create_partie_table = "CREATE TABLE IF NOT EXISTS partie_lambda (
     ID_partie INT AUTO_INCREMENT PRIMARY KEY,
     ID_user INT,
-    FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     parties_jouees INT,
     nombre_vagues_totales INT,
     nombre_monstre_total INT,
@@ -54,7 +51,10 @@ $sql_create_partie_table = "CREATE TABLE IF NOT EXISTS partie_lambda (
     tours_construites_total INT,
     tours_individuel_total INT,
     tune_totale INT,
-    score INT
+    score INT,
+    duree_jeu INT,
+    win BOOLEAN,
+    FOREIGN KEY (ID_user) REFERENCES user(ID_user)
 )";
 
 if (mysqli_query($connexion, $sql_create_partie_table)) {
@@ -63,12 +63,11 @@ if (mysqli_query($connexion, $sql_create_partie_table)) {
     echo "Erreur lors de la création de la table 'partie_lambda': " . mysqli_error($connexion);
 }
 
-//  table "Historique des Parties"
 $sql_create_historique_table = "CREATE TABLE IF NOT EXISTS historique_parties (
-    ID_historique INT PRIMARY KEY,
+    ID_historique INT AUTO_INCREMENT PRIMARY KEY,
     ID_partie INT,
-    FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie),
     ID_user INT,
+    FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie),
     FOREIGN KEY (ID_user) REFERENCES user(ID_user),
     nombre_vagues_totales INT,
     nombre_monstre_total INT,
@@ -77,7 +76,9 @@ $sql_create_historique_table = "CREATE TABLE IF NOT EXISTS historique_parties (
     tours_construites_total INT,
     tours_individuel_total INT,
     tune_totale INT,
-    score INT
+    score INT,
+    duree_jeu INT,
+    win BOOLEAN
 )";
 
 if (mysqli_query($connexion, $sql_create_historique_table)) {
@@ -86,7 +87,6 @@ if (mysqli_query($connexion, $sql_create_historique_table)) {
     echo "Erreur lors de la création de la table 'historique_parties': " . mysqli_error($connexion);
 }
 
-// table "Statistiques du joueur"
 $sql_create_statistiques_table = "CREATE TABLE IF NOT EXISTS statistiques_user (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     ID_user INT,
@@ -102,7 +102,9 @@ $sql_create_statistiques_table = "CREATE TABLE IF NOT EXISTS statistiques_user (
     tours_construites_total INT,
     tours_individuel_total INT,
     tune_totale INT,
-    score INT
+    score INT,
+    duree_jeu INT,
+    win BOOLEAN
 )";
 
 if (mysqli_query($connexion, $sql_create_statistiques_table)) {
@@ -110,6 +112,14 @@ if (mysqli_query($connexion, $sql_create_statistiques_table)) {
 } else {
     echo "Erreur lors de la création de la table 'statistiques_user': " . mysqli_error($connexion);
 }
+
+
+if (mysqli_query($connexion, $sql_create_statistiques_table)) {
+    echo "Table 'statistiques_user' créée avec succès!";
+} else {
+    echo "Erreur lors de la création de la table 'statistiques_user': " . mysqli_error($connexion);
+}
+
 
 //_______________________Forum Partie________________
 // table "post" 
