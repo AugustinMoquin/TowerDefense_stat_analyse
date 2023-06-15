@@ -7,13 +7,14 @@ ok chef au travail !
 mdp password root ( php my admin) : root
 
 yann :
- -creation bdd et api 
- -generation de données
- -panel admin (crud)
- -hash psswd
+ -creation bdd et api (done)
+ -generation de données(done)
+ -panel admin (crud) (prochainement)
+ -hash psswd(done)
+ -Représentations des données ( en cours)
 
 augustin :
- -login register
+ -login register( done)
  -sessions
  -chat
  -forum
