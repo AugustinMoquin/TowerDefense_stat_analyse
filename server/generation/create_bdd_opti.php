@@ -152,6 +152,7 @@ foreach ($tables as $table => $sql) {
     } else {
         echo "Erreur lors de la création de la table '$table': " . mysqli_error($connexion);
     }
+    
 }
 
 // Fermer la connexion à la base de données

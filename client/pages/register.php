@@ -1,47 +1,65 @@
-<?php require $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/src/boostrap.php";?>
-<?php view('header', ['title' => 'register']) ?>
-<?php view('footer') ?>
-<? $path = $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/server/parametre/register.php" ?>
+<html lang="en">
+<?php
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=tower_defense','root','root');
+require ("../handler/register_handler.php");
 
-<!DOCTYPE html>
+?>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../pages/assets/register.css">
+    <title>Login and Register</title>
+</head>
+
 <body>
-<main>
-
-
-    <form method="post" action= "../handler/register_handler.php" name = "register_form" >
-        <h1>Sign Up</h1>
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username">
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email">
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-        </div>
-        <div>
-            <label for="password2">Password Again:</label>
-            <input type="password" name="password2" id="password2">
-        </div>
-        <div>
-            <label for="agree">
-                <input type="checkbox" name="agree" id="agree" value="yes"/> I agree
-                with the
-                <a href="#" title="term of services">term of services</a>
-            </label>
-        </div>
-        <button type="submit">Register</button>
-        <footer>Already a member? <a href="login.php">Login here</a></footer>
-    </form>
-    <div class="err">
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group"  method="POST" >
+                <input type="text" class="input-field" placeholder="User Id" name="username" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="passwd" required>
+                <input type="submit" class="submit-btn" name="formconnexion" 
+                action="../handler/register_handler.php"></input>
+            </form>
+            <form id="register" class="input-group"  method="POST" >
+                <input type="text" class="input-field" placeholder="User Id" name="username" required>
+                <input type="email" class="input-field" placeholder="Email Id" name="email" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="passwd" required>
+                <input type="password" class="input-field" placeholder="Confirm Password" name="passwd2" required>
+                <input type="submit" class="submit-btn"  name="forminscription" 
+                action="../handler/register_handler.php"></input>
+            </form>
+            <div class="err">
               <?php 
               if (isset($message))
                 echo $message;
               ?>
+            </div>
+
+        </div>
     </div>
-</main>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+        }
+    </script>
 </body>
+
 </html>

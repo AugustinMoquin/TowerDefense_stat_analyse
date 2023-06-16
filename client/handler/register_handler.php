@@ -1,58 +1,94 @@
-<?
-require $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/src/boostrap.php";
-$conn = conn();
+<?php
+
+$bddadmin = new PDO('mysql:host=127.0.0.1;dbname=tower_defense','root','root');
+
 session_start();
 
-if (isset($POST['register_form'])){
-    if (!empty($POST['username']) && !empty($POST['email']) && !empty($POST['password']) && !empty($POST['password2'])){
+
+if (isset($_POST['forminscription'])) {
+    if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['passwd'])) {
         $username = htmlspecialchars($_POST['username']);
         $email = htmlspecialchars($_POST['email']);
-        $passwd = $_POST['password'];
-        $passwd2 = $_POST['password2'];
-        $passwdhash = sha1($_POST['password']);
-        $passwd2hash = sha1($_POST['password2']);
+        $passwd = $_POST['passwd'];
+        $passwd2 = $_POST['passwd2'];
+        $passwdhash = sha1($_POST['passwd']);
+        $passwd2hash = sha1($_POST['passwd2']);
         $usernamelength = strlen($username);
-        $passwdlength = strlen($password);
-        $test=Validation($passwd,$passwdlength);
-    //     if ($usernamelength <= 50) {
-    //         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    //             $requser= $bdd->prepare("SELECT * FROM user WHERE username = ?");
-    //             $requser->execute(array($username));
-    //             $userexist = $requser->rowCount();
-    //             if ($userexist==0) {
-    //                 if ($passwd == $passwd2) {
-    //                     if ($passwdlength >=3 ) {  
-    //                         if ($test==4) {
-    //                             $insertmbr = $bdd->prepare("INSERT INTO users(email,username,mdp) VALUES(?,?,?)");
-    //                             $insertmbr->execute(array($email,$username,$passwdhash));
-    //                             $message = "Votre compte a bien était créé";
-    //                         }else {
-    //                             $message = "Votre MDP doit contenir au moins une min, une Maj, 
-    //                             un Chiffre et un caractère spécial";
-    //                         }
-    //                     }else {
-    //                         $message = "Votre Mdp n'est pas assez long";
-    //                     }
-    //                 }else {
-    //                     $message ="Password incorrect";
-    //                 }
-    //             }else {
-    //                 $message ="User déja existant";
-    //             }
-    //         }else {
-    //             $message = "Votre adresse mail n'est pas valide !";
-    //         } 
-    //     }else {
-    //         $message = "votre pseudo ne doit pas depasse 50 charactère";
-    //     }     
-    // }else {
-    //     $message ="Tous les champs doivent etre compléter";
-    // }                
+        $passwdlength = strlen($passwd);
+        $test=Sécuritymdp($passwd,$passwdlength);
+        if ($usernamelength <= 50) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $requser= $bdd->prepare("SELECT * FROM user WHERE user_name = ?");
+                $requser->execute(array($username));
+                $userexist = $requser->rowCount();
+                if ($userexist==0) {
+                    if ($passwd == $passwd2) {
+                        if ($passwdlength >=3 ) {  
+                            if ($test==4) {
+                                $insertmbr = $bdd->prepare("INSERT INTO user(email,user_name,mdp) VALUES(?,?,?)");
+                                $insertmbr->execute(array($email,$username,$passwdhash));
+                                $message = "Votre compte a bien était créé";
+                            }else {
+                                $message = "Votre Mot de passe n'est pas assez sécurise , il faut des mins 
+                                , des maj , des chiffres et un caractéres spécial";
+                            }
+                        }else {
+                            $message = "Votre Mdp n'est pas assez long";
+                        }
+
+                    }else {
+                        $message ="Password incorrect";
+                    }
+                }else {
+                    $message ="User déja existant";
+                }
+            }else {
+                $message = "Votre adresse mail n'est pas valide !";
+            } 
+        }else {
+            $message = "votre pseudo ne doit pas depasse 50 charactère";
+        }     
+    }else {
+        $message ="Tous les champs doivent etre compléter";
+    }
+                            
+                        
+                    
+                
+    
 }
 
+if (isset($_POST['formconnexion'])) {
+    if (!empty($_POST['username']) && !empty($_POST['passwd'])) {
+        $username = htmlspecialchars($_POST['username']);
+        $passwd = sha1($_POST['passwd']);
 
+        $requser= $bdd->prepare("SELECT * FROM user WHERE user_name = ? && mdp= ?");
+        $requser->execute(array($username, $passwd));
+        $userexist = $requser->rowCount();
+                
+        if ($userexist>=1) {
+            $userinfo = $requser->fetch();
+            $_SESSION['Id'] = $userinfo['Id'];
+            $_SESSION['username'] = $userinfo['username'];
+            header("Location: ../pages/user/user_profile.php");
+            $message= "tu es connécté";
+            setcookie('username', $username, time()+3600*24, '/', '', true, true);
+            setcookie('password', $passwd, time()+3600*24, '/', '', true, true);
+            setcookie('id', $userinfo['Id'], time()+3600*24, '/', '', true, true);
+        }else {
+            $message= "ce profil n'éxiste pas";
+        }
+        
 
-function Validation($passwd,$passwdlength) : bool{
+    }else {
+        $message ="Tous les champs doivent etre compléter";
+    }
+    
+}
+
+function Sécuritymdp($passwd,$passwdlength):int
+{
     $security = 0;
     $securitymaj=0;
     $securityspe=0;
@@ -73,13 +109,8 @@ function Validation($passwd,$passwdlength) : bool{
             $securityspe =$securityspe+1 ;
         }
        
-        $res = $securityspe+$securitynum+$securitymaj+$security;
+        $final = $securityspe+$securitynum+$securitymaj+$security;
     }
-    if($res == 4){
-        return true;
-    }else{
-        return false;
-    }
+    return $final;
 }
-
 ?>
