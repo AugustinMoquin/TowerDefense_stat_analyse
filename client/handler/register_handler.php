@@ -1,5 +1,6 @@
 <?
-$bddadmin = new PDO('mysql:host=127.0.0.1;dbname=e-commerce','root','root');
+require $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/src/boostrap.php";
+$conn = conn();
 session_start();
 
 if (isset($POST['register_form'])){
@@ -13,40 +14,40 @@ if (isset($POST['register_form'])){
         $usernamelength = strlen($username);
         $passwdlength = strlen($password);
         $test=Validation($passwd,$passwdlength);
-        if ($usernamelength <= 50) {
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $requser= $bdd->prepare("SELECT * FROM user WHERE username = ?");
-                $requser->execute(array($username));
-                $userexist = $requser->rowCount();
-                if ($userexist==0) {
-                    if ($passwd == $passwd2) {
-                        if ($passwdlength >=3 ) {  
-                            if ($test==4) {
-                                $insertmbr = $bdd->prepare("INSERT INTO users(email,username,mdp) VALUES(?,?,?)");
-                                $insertmbr->execute(array($email,$username,$passwdhash));
-                                $message = "Votre compte a bien était créé";
-                            }else {
-                                $message = "Votre MDP doit contenir au moins une min, une Maj, 
-                                un Chiffre et un caractère spécial";
-                            }
-                        }else {
-                            $message = "Votre Mdp n'est pas assez long";
-                        }
-                    }else {
-                        $message ="Password incorrect";
-                    }
-                }else {
-                    $message ="User déja existant";
-                }
-            }else {
-                $message = "Votre adresse mail n'est pas valide !";
-            } 
-        }else {
-            $message = "votre pseudo ne doit pas depasse 50 charactère";
-        }     
-    }else {
-        $message ="Tous les champs doivent etre compléter";
-    }                
+    //     if ($usernamelength <= 50) {
+    //         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //             $requser= $bdd->prepare("SELECT * FROM user WHERE username = ?");
+    //             $requser->execute(array($username));
+    //             $userexist = $requser->rowCount();
+    //             if ($userexist==0) {
+    //                 if ($passwd == $passwd2) {
+    //                     if ($passwdlength >=3 ) {  
+    //                         if ($test==4) {
+    //                             $insertmbr = $bdd->prepare("INSERT INTO users(email,username,mdp) VALUES(?,?,?)");
+    //                             $insertmbr->execute(array($email,$username,$passwdhash));
+    //                             $message = "Votre compte a bien était créé";
+    //                         }else {
+    //                             $message = "Votre MDP doit contenir au moins une min, une Maj, 
+    //                             un Chiffre et un caractère spécial";
+    //                         }
+    //                     }else {
+    //                         $message = "Votre Mdp n'est pas assez long";
+    //                     }
+    //                 }else {
+    //                     $message ="Password incorrect";
+    //                 }
+    //             }else {
+    //                 $message ="User déja existant";
+    //             }
+    //         }else {
+    //             $message = "Votre adresse mail n'est pas valide !";
+    //         } 
+    //     }else {
+    //         $message = "votre pseudo ne doit pas depasse 50 charactère";
+    //     }     
+    // }else {
+    //     $message ="Tous les champs doivent etre compléter";
+    // }                
 }
 
 

@@ -18,4 +18,22 @@ function is_get_request(): bool
 {
     return strtoupper($_SERVER['REQUEST_METHOD']) === 'GET';
 }
+
+function conn() : mysqli {
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "tower_defense";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    echo 'success';
+
+}
+
 ?>

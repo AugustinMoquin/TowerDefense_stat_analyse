@@ -1,5 +1,4 @@
-<?php require $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/src/boostrap.php"; 
-$bdd = new PDO('mysql:host=127.0.0.1;dbname=tower_defense', 'root', 'root');?>
+<?php require $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/src/boostrap.php";?>
 <?php view('header', ['title' => 'register']) ?>
 <?php view('footer') ?>
 <? $path = $_SERVER['DOCUMENT_ROOT']."/towerdefense_stat_analyse/server/parametre/register.php" ?>
