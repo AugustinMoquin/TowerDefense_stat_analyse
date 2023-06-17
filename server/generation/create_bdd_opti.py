@@ -3,10 +3,10 @@ import time
 #  connexion bdd
 hostname = "localhost" 
 username = "root"  
-password = "root" 
+password = "" 
 
 
-connexion = mysql.connector.connect(host=hostname,user=username,âsswrod=password)
+connexion = mysql.connector.connect(host=hostname,user=username,password=password)
 
 
 if not connexion.is_connected():
@@ -140,24 +140,7 @@ tables = {
         ID_user2 INT,
         FOREIGN KEY (ID_user2) REFERENCES user(ID_user),
         timestamp TIMESTAMP
-<<<<<<< HEAD:server/generation/create_bdd_opti.py
     )"""
-=======
-    )"
-);
-
-// Créer les tables une par une
-foreach ($tables as $table => $sql) {
-    if (mysqli_query($connexion, $sql)) {
-        echo "Table '$table' créée avec succès!";
-    } else {
-        echo "Erreur lors de la création de la table '$table': " . mysqli_error($connexion);
-    }
-    
-<<<<<<< Updated upstream:server/generation/create_bdd_opti.php
-=======
->>>>>>> 232e2f7033351d212febdf14f959200e3a4a3c88:server/generation/create_bdd_opti.php
->>>>>>> Stashed changes:server/generation/create_bdd_opti.py
 }
 
 
