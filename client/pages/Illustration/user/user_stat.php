@@ -4,27 +4,61 @@ $username = "root";
 $password = "";
 $database = "tower_defense"; 
 
-// Connection
+
 $con = mysqli_connect($hostname, $username, $password, $database);
 
-// Check connection 
+
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Get the ID_user de l' input
+
 $user_id = $_POST['ID_user'];
 
-$query = "SELECT win, COUNT(*) AS count FROM partie_lambda WHERE ID_user = '$user_id' GROUP BY win";
+// Requête s données user
+$query = "SELECT 
+    AVG(parties_jouees) AS avg_parties_jouees,
+    AVG(nombre_vagues_totales) AS avg_nombre_vagues_totales,
+    AVG(nombre_monstre_total) AS avg_nombre_monstre_total,
+    AVG(monstres_tues_individuel) AS avg_monstres_tues_individuel,
+    AVG(temps_total_partie) AS avg_temps_total_partie,
+    AVG(tours_construites_total) AS avg_tours_construites_total,
+    AVG(tours_individuel_total) AS avg_tours_individuel_total,
+    AVG(tune_totale) AS avg_tune_totale,
+    AVG(score) AS avg_score,
+    AVG(duree_jeu) AS avg_duree_jeu
+FROM partie_lambda
+WHERE ID_user = $user_id";
+
 $result = mysqli_query($con, $query);
 
-// Data_Pie Chart
-$dataPoints = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $label = $row['win'] == 0 ? 'Win' : 'Loss';
-    $dataPoints[] = array(
-        "label" => $label,
-        "y" => $row['count']
+// Récupdonnéesrequête
+$dataRow = mysqli_fetch_assoc($result);
+
+// Donné barchart
+$dataBar = array(
+    array("label" => "Parties Jouées", "y" => $dataRow['avg_parties_jouees']),
+    array("label" => "Nombre de Vagues Totales", "y" => $dataRow['avg_nombre_vagues_totales']),
+    array("label" => "Nombre de Monstres Total", "y" => $dataRow['avg_nombre_monstre_total']),
+    array("label" => "Monstres Tués Individuel", "y" => $dataRow['avg_monstres_tues_individuel']),
+    array("label" => "Temps Total de Partie", "y" => $dataRow['avg_temps_total_partie']),
+    array("label" => "Tours Construites Total", "y" => $dataRow['avg_tours_construites_total']),
+    array("label" => "Tours Individuel Total", "y" => $dataRow['avg_tours_individuel_total']),
+    array("label" => "Tune Totale", "y" => $dataRow['avg_tune_totale']),
+    array("label" => "Score", "y" => $dataRow['avg_score']),
+    array("label" => "Durée de Jeu", "y" => $dataRow['avg_duree_jeu'])
+);
+
+$queryPie = "SELECT win, COUNT(*) AS count FROM partie_lambda WHERE ID_user = '$user_id' GROUP BY win";
+$resultPie = mysqli_query($con, $queryPie);
+
+// Données piechart
+$dataPointsPie = array();
+while ($rowPie = mysqli_fetch_assoc($resultPie)) {
+    $labelPie = $rowPie['win'] == 0 ? 'Win' : 'Loss';
+    $dataPointsPie[] = array(
+        "label" => $labelPie,
+        "y" => $rowPie['count']
     );
 }
 
@@ -39,56 +73,6 @@ mysqli_close($con);
         margin-bottom: 10px;
     }
 </style>
-<!-- un Pie Chart Win/ Loose -->
-<script>
-window.onload = function() {
-    var chart = new CanvasJS.Chart("chartContainer", {
-        theme: "light2",
-        animationEnabled: true,
-        title: {
-            text: "joueur <?php echo $user_id; ?> stats "
-        },
-        data: [{
-            type: "pie",
-            indexLabel: "{y}",
-            yValueFormatString: "#,##0.00",
-            indexLabelPlacement: "inside",
-            indexLabelFontColor: "#36454F",
-            indexLabelFontSize: 18,
-            indexLabelFontWeight: "bolder",
-            showInLegend: true,
-            legendText: "{label}",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-        }]
-    });
-
-    // Calcul total wins/ losses
-    var totalWins = 0;
-    var totalLosses = 0;
-    <?php
-    foreach ($dataPoints as $dataPoint) {
-        if ($dataPoint['label'] == 'Win') {
-            echo 'totalWins += ' . $dataPoint['y'] . ';';
-        } else {
-            echo 'totalLosses += ' . $dataPoint['y'] . ';';
-        }
-    }
-    ?>
-
-    // calcul pour pourcentage winn
-    var totalGames = totalWins + totalLosses;
-    var winPercentage = (totalWins / totalGames) * 100;
-    var lossPercentage = (totalLosses / totalGames) * 100;
-
-    // Pourcentage win dans titre
-    chart.options.title.text += " (WinRate calculé: " + winPercentage.toFixed(2) + "%)";
-
-    chart.render();
-}
-</script>
-
-Ce code calcule le nombre total de victoires et de défaites à partir des données et ensuite calcule le pourcentage de victoires. Ensuite, il ajoute le pourcentage de victoires au titre du graphique.
-
 </head>
 <body>
 <form id="userForm" method="POST" action="">
@@ -96,7 +80,76 @@ Ce code calcule le nombre total de victoires et de défaites à partir des donn�
     <input type="number" id="ID_user" name="ID_user" required>
     <button type="submit">Submit</button>
 </form>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+<div id="chartContainerPie" style="height: 370px; width: 100%;"></div>
+<div id="chartContainerBar" style="height: 370px; width: 100%;"></div>
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    //___________________________________________________________PieCHART____________________________________________
+window.onload = function() {
+    var chartPie = new CanvasJS.Chart("chartContainerPie", {
+        theme: "light2",
+        animationEnabled: true,
+        title: {
+            text: "User <?php echo $user_id; ?> Win/Loss Stats"
+        },
+        data: [{
+            type: "pie",
+            indexLabel: "{y}",
+            yValueFormatString: "#,##0",
+            indexLabelPlacement: "inside",
+            indexLabelFontColor: "#36454F",
+            indexLabelFontSize: 18,
+            indexLabelFontWeight: "bolder",
+            showInLegend: true,
+            legendText: "{label}",
+            dataPoints: <?php echo json_encode($dataPointsPie, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+//___________________________________________________________BARCHART____________________________________________
+    var chartBar = new CanvasJS.Chart("chartContainerBar", {
+        theme: "light2",
+        animationEnabled: true,
+        title: {
+            text: "User <?php echo $user_id; ?> Average Stats"
+        },
+        axisY: {
+            title: "Average Value"
+        },
+        data: [{
+            type: "column",
+            indexLabel: "{y}",
+            yValueFormatString: "#,##0.00",
+            dataPoints: <?php echo json_encode($dataBar, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+
+    // Calcul total wins/losses
+    var totalWins = 0;
+    var totalLosses = 0;
+    <?php
+    foreach ($dataPointsPie as $dataPointPie) {
+        if ($dataPointPie['label'] == 'Win') {
+            echo 'totalWins += ' . $dataPointPie['y'] . ';';
+        } else {
+            echo 'totalLosses += ' . $dataPointPie['y'] . ';';
+        }
+    }
+    ?>
+
+    // pourcentage de victoire
+    var totalGames = totalWins + totalLosses;
+    var winPercentage = (totalWins / totalGames) * 100;
+    var lossPercentage = (totalLosses / totalGames) * 100;
+
+    // Pourcentage de victoire dans le titre 
+    chartPie.options.title.text += " (WinRate: " + winPercentage.toFixed(2) + "%)";
+
+    chartPie.render();
+    chartBar.render();
+}
+</script>
+
 </body>
 </html>
