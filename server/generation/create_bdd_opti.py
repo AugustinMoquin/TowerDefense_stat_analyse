@@ -24,7 +24,7 @@ connexion.database = database
 
 # ____________________TABLES_________________________________________
 tables = {
-    "user": """CREATE TABLE IF NOT EXISTS user (
+    "user": """CREATE TABLE IF NOT EXISTS users (
         ID_user INT AUTO_INCREMENT PRIMARY KEY,
         user_name VARCHAR(255),
         mdp VARCHAR(255),
@@ -46,24 +46,14 @@ tables = {
         score INT,
         duree_jeu INT,
         win BOOLEAN,
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user)
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user)
     )""",
     "historique_générale": """CREATE TABLE IF NOT EXISTS historique_générale (
         ID_historique INT AUTO_INCREMENT PRIMARY KEY,
         ID_partie INT,
         ID_user INT,
         FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie),
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user)
-    )""",
-    "historique_parties_user": """CREATE TABLE IF NOT EXISTS historique_parties_user (
-        ID_historique INT AUTO_INCREMENT PRIMARY KEY,
-        ID_partie INT,
-        ID_user INT,
-        FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie),
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user),
-        CONSTRAINT FK_historique_user FOREIGN KEY (ID_user) REFERENCES user(ID_user) ON DELETE CASCADE,
-        CONSTRAINT FK_historique_partie_lambda FOREIGN KEY (ID_partie) REFERENCES partie_lambda(ID_partie) ON DELETE CASCADE,
-        CHECK (ID_user = (SELECT ID_user FROM partie_lambda WHERE ID_partie = ID_partie))
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user)
     )""",
     "statistiques_user": """CREATE TABLE IF NOT EXISTS statistiques_user (
         ID_statistique INT AUTO_INCREMENT PRIMARY KEY,
@@ -79,7 +69,7 @@ tables = {
         moyenne_score DECIMAL(10, 2),
         moyenne_duree_jeu DECIMAL(10, 2),
         moyenne_win DECIMAL(10, 2),
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user)
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user)
     )""",
     "forum": """CREATE TABLE IF NOT EXISTS forum (
         ID_forum INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,7 +82,7 @@ tables = {
         Post VARCHAR(255),
         titre VARCHAR(255),
         Timestamp TIMESTAMP,
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user),
         FOREIGN KEY (ID_forum) REFERENCES forum(ID_forum)
     )""",
     "commentaire": """CREATE TABLE IF NOT EXISTS commentaire (
@@ -101,21 +91,21 @@ tables = {
         ID_post INT,
         commentaire VARCHAR(255),
         Timestamp TIMESTAMP,
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user),
         FOREIGN KEY (ID_post) REFERENCES post(ID_post)
     )""",
     "discussion_mp": """CREATE TABLE IF NOT EXISTS discussion_mp (
         ID_discussion INT AUTO_INCREMENT PRIMARY KEY,
         ID_user1 INT,
-        FOREIGN KEY (ID_user1) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user1) REFERENCES users(ID_user),
         ID_user2 INT,
-        FOREIGN KEY (ID_user2) REFERENCES user(ID_user)
+        FOREIGN KEY (ID_user2) REFERENCES users(ID_user)
     )""",
     "message": """CREATE TABLE IF NOT EXISTS message (
         ID_message INT AUTO_INCREMENT PRIMARY KEY,
         timestamp TIMESTAMP,
         ID_user INT,
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user) REFERENCES users(ID_user),
         contenu VARCHAR(255),
         ID_discussion INT,
         FOREIGN KEY (ID_discussion) REFERENCES discussion_mp(ID_discussion)
@@ -125,20 +115,13 @@ tables = {
         ID_discussion INT,
         FOREIGN KEY (ID_discussion) REFERENCES discussion_mp(ID_discussion)
     )""",
-    "user_discussion_historique": """CREATE TABLE IF NOT EXISTS user_discussion_historique (
-        ID_user INT,
-        FOREIGN KEY (ID_user) REFERENCES user(ID_user),
-        ID_discussion INT,
-        FOREIGN KEY (ID_discussion) REFERENCES discussion_mp(ID_discussion),
-        PRIMARY KEY (ID_user, ID_discussion)
-    )""",
     "Relations": """CREATE TABLE IF NOT EXISTS Relations (
         ID_Relations INT AUTO_INCREMENT PRIMARY KEY,
         nature Varchar(15), 
         ID_user1 INT,
-        FOREIGN KEY (ID_user1) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user1) REFERENCES users(ID_user),
         ID_user2 INT,
-        FOREIGN KEY (ID_user2) REFERENCES user(ID_user),
+        FOREIGN KEY (ID_user2) REFERENCES users(ID_user),
         timestamp TIMESTAMP
     )"""
 }

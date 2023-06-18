@@ -1,8 +1,4 @@
 <html lang="en">
-<?php
-require ("../../../server/src/config/database.php");
-$conn = openCon();
-?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +8,7 @@ $conn = openCon();
 </head>
 
 <body>
-    <form action="#" method="POST">
+    <form action="../../handler/chat_handler.php" method="POST">
         <input type="text" id="message" name="message" required
        maxlength="50" size="10">
        <button type="submit">envoie</button>
@@ -21,7 +17,3 @@ $conn = openCon();
 
 
 </html>
-
-<?php
-
-?>

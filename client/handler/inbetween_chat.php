@@ -14,5 +14,5 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-header('../chat/chat.php');
+header('Location: ../pages/chat/chat.php');
 
