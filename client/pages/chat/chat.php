@@ -1,8 +1,6 @@
 <html lang="en">
 <?php
-$bdd = new PDO('mysql:host=127.0.0.1;dbname=tower_defense','root','root');
-require ("../handler/register_handler.php");
-require ("../../server/src/config/database.php");
+require ("../../../server/src/config/database.php");
 $conn = openCon();
 ?>
 <head>
@@ -24,11 +22,6 @@ $conn = openCon();
 
 </html>
 
-<?
-
-if (isset($_POST['message'])){
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('John', 'Doe', 'john@example.com')";
-}
+<?php
 
 ?>

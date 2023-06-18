@@ -1,6 +1,5 @@
 <?php
 
-$bddadmin = new PDO('mysql:host=127.0.0.1;dbname=tower_defense','root','root');
 
 session_start();
 
@@ -18,14 +17,14 @@ if (isset($_POST['forminscription'])) {
         $test=Sécuritymdp($passwd,$passwdlength);
         if ($usernamelength <= 50) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $requser= $bdd->prepare("SELECT * FROM user WHERE user_name = ?");
+                $requser= $bdd->prepare("SELECT * FROM users WHERE user_name = ?");
                 $requser->execute(array($username));
                 $userexist = $requser->rowCount();
                 if ($userexist==0) {
                     if ($passwd == $passwd2) {
                         if ($passwdlength >=3 ) {  
                             if ($test==4) {
-                                $insertmbr = $bdd->prepare("INSERT INTO user(email,user_name,mdp) VALUES(?,?,?)");
+                                $insertmbr = $bdd->prepare("INSERT INTO users(email,user_name,mdp) VALUES(?,?,?)");
                                 $insertmbr->execute(array($email,$username,$passwdhash));
                                 $message = "Votre compte a bien était créé";
                             }else {
@@ -63,7 +62,7 @@ if (isset($_POST['formconnexion'])) {
         $username = htmlspecialchars($_POST['username']);
         $passwd = sha1($_POST['passwd']);
 
-        $requser= $bdd->prepare("SELECT * FROM user WHERE user_name = ? && mdp= ?");
+        $requser= $bdd->prepare("SELECT * FROM users WHERE user_name = ? && mdp= ?");
         $requser->execute(array($username, $passwd));
         $userexist = $requser->rowCount();
                 
