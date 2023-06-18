@@ -11,7 +11,7 @@ function handleErrorResponse($message, $statusCode) {
 
 // Function to fetch and return the table structure and data
 function getTableData() {
-    $con = mysqli_connect("localhost","root","root","tower_defense");
+    $con = mysqli_connect("localhost","root","","tower_defense");
     if (!$con) {
         handleErrorResponse("Connection to the database failed", 500);
     }
