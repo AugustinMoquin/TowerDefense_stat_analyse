@@ -94,7 +94,7 @@ def generate_statistiques_user_data(user_ids):
 users = []
 for _ in range(5):
     user_data = generate_user_data()
-    query = "INSERT INTO user (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
+    query = "INSERT INTO users (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
     cursor.execute(query, user_data)
     users.append(cursor.lastrowid)
 
@@ -122,15 +122,6 @@ for _ in range(3):
 
 connexion.commit()
 print("Données générées pour la table 'historique_générale'")
-
-# Génération de données aléatoires pour la table "historique_parties_user"
-for _ in range(3):
-    historique_parties_user_data = generate_historique_parties_user_data(parties, users)
-    query = "INSERT INTO historique_parties_user (ID_partie, ID_user) VALUES (%s, %s)"
-    cursor.execute(query, historique_parties_user_data)
-
-connexion.commit()
-print("Données générées pour la table 'historique_parties_user'")
 
 # Génération de données aléatoires pour la table "statistiques_user"
 for _ in range(3):
