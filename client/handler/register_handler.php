@@ -68,12 +68,12 @@ if (isset($_POST['formconnexion'])) {
 
         if ($userexist >= 1) {
             $userinfo = $requser->fetch();
-            $_SESSION['Id'] = $userinfo['Id'];
+            $_SESSION['Id'] = $userinfo['ID_user'];
             $_SESSION['username'] = $userinfo['username'];
             $message = "tu es connécté";
             setcookie('username', $username, time() + 3600 * 24, '/', '', true, true);
             setcookie('password', $passwd, time() + 3600 * 24, '/', '', true, true);
-            setcookie('id', $userinfo['Id'], time() + 3600 * 24, '/', '', true, true);
+            setcookie('id', $userinfo['ID_user'], time() + 3600 * 24, '/', '', true, true);
             header("Location: ../pages/user/user_profile.php");
         } else {
             $message = "ce profil n'éxiste pas";

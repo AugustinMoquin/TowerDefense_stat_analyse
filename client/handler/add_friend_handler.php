@@ -1,17 +1,26 @@
 <?php
 require("../../src\config\database.php");
 $conn = openCon();
-
-$username = $_COOKIE["username"];
+$id = $_COOKIE["id"];
 
 if (isset($_POST['add_friend'])) {
     $name = $_POST['add_friend'];
-    $sql = "SELECT * FROM users WHERE user_name LIKE '%$name%'";
+    $sql = "SELECT * FROM users WHERE ID_user != $id  AND user_name LIKE '%$name%'";
     $result = $conn->query($sql);
 }
 
 if (isset($_POST['added'])) {
-    echo $_POST['added'];
+    $friend = $_POST['added'];
+    $req = "INSERT INTO relations (ID_user1, ID_user2, nature)
+    VALUES ($id , $friend, 'Meilleur ami pour la vie')";
+
+    if ($conn->query($req) === TRUE) {
+        echo "Bienvenue à toi mon khoya";
+    } else {
+        echo "Error: " . $req . "<br>" . $conn->error;
+    }
+    
+    $conn->close();
 }
 ?>
 
@@ -41,17 +50,19 @@ if (isset($_POST['added'])) {
 
     <div>
         <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <p>
-                <?php echo $row['user_name'] . "#" . $row['ID_user']; ?>
-            </p>
-            <form action="<?php echo "#" . $row['ID_user']; ?>" method="post">
-                <input type='hidden' value='<?php echo $row['ID_user']; ?>' name='added'>
-                <input type="submit" value="add friend">
-            </form>
-            <?php
-        }
+        if (isset($_POST['add_friend'])) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                <p>
+                    <?php echo $row['user_name'] . "#" . $row['ID_user']; ?>
+                </p>
+                <form action="<?php echo "#" . $row['ID_user']; ?>" method="post">
+                    <input type='hidden' value='<?php echo $row['ID_user']; ?>' name='added'>
+                    <input type="submit" value="add friend">
+                </form>
+                <?php
+            }
+    }
         ?>
     </div>
 </body>
