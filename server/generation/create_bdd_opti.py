@@ -3,7 +3,7 @@ import time
 #  connexion bdd
 hostname = "localhost" 
 username = "root"  
-password = "" 
+password = "root" 
 
 
 connexion = mysql.connector.connect(host=hostname,user=username,password=password)
