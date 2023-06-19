@@ -10,14 +10,14 @@ yann :
  -creation bdd et api (done)
  -generation de données(done)
  -panel admin (crud) (prochainement)
- -hash psswd(done)
  -Représentations des données ( Fin : Partie Lambda / User_Stat) ( à voir la direction aritstique pour historique user et rank + A voir si on fait un historique général?)
 
 augustin :
  -login register(Fait)
  -sessions (Fait)
+ -hash psswd(done)
  -chat (bien commencé)
- -forum
  -demandes d'amis (en cours)
+ -forum
  -redirection url
 

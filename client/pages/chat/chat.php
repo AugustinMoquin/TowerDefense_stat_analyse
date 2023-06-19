@@ -1,5 +1,7 @@
 <?php
-require "../../handler/chat_handler.php";
+require_once("../../handler/chat_handler.php");
+$conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n". $conn -> error);
+$friendId = $_GET['id'];
 ?>
 
 <html lang="en">
@@ -12,14 +14,19 @@ require "../../handler/chat_handler.php";
     <title>chat</title>
 </head>
 <body>
-    <form action="../../handler/chat_handler.php" method="POST">
-        <input type="hidden" value="<?php echo $_POST['id_relations']?>" name='id_relations' >
+    <form method="POST" action='<?php echo "chat.php?id=". $friendId; ?>'>
         <input type="text" id="message" name="message" required maxlength="50" size="10">
         <button type="submit">envoie</button>
     </form>
-    <?php 
-     Display_chat($_POST['id_relations']);
-    ?>
+
+    <div>
+        <?php 
+        if (isset($_POST['message'])){
+            Add_message($friendId);
+        }
+        Display_chat($friendId);
+        ?>
+    </div>
 </body>
 
 
