@@ -14,6 +14,8 @@ if not connexion.is_connected():
     raise Exception("Échec de la connexion à la base de données")
 
 cursor = connexion.cursor()
+
+# Fonction pour générer des données aléatoires pour la table "user"
 def generate_user_data():
     user_names = ["John", "Jane", "Alice", "Bob", "Emma", "David"]
     emails = ["john@example.com", "jane@example.com", "alice@example.com", "bob@example.com", "emma@example.com", "david@example.com"]
@@ -25,6 +27,7 @@ def generate_user_data():
     photo_profil = f"{user_name}.jpg"
 
     return (user_name, email, tel, photo_profil)
+
 # Fonction pour générer une date aléatoire dans une plage donnée
 def random_date(start_date, end_date):
     time_between = end_date - start_date
@@ -73,6 +76,7 @@ for _ in range(5):
 
 connexion.commit()
 print("Données générées pour la table 'user'")
+
 # Génération de données aléatoires pour la table "forum"
 forums = []
 for _ in range(5):

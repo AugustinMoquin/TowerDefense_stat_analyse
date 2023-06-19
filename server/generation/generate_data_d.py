@@ -21,7 +21,8 @@ def random_date(start_date, end_date):
     random_number_of_days = random.randrange(time_between.days)
     random_date = start_date + timedelta(days=random_number_of_days)
     return random_date
-# Fonction pour générer des données aléatoires pour la table "user"
+
+# Fonction pour générer des données aléatoires pour la table "users"
 def generate_user_data():
     user_names = ["John", "Jane", "Alice", "Bob", "Emma", "David"]
     emails = ["john@example.com", "jane@example.com", "alice@example.com", "bob@example.com", "emma@example.com", "david@example.com"]
@@ -34,17 +35,18 @@ def generate_user_data():
 
     return (user_name, email, tel, photo_profil)
 
-# Génération de données aléatoires pour la table "user"
+# Génération de données aléatoires pour la table "users"
 users = []
 for _ in range(5):
-    user_data = generate_user_data()
-    query = "INSERT INTO user (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
-    cursor.execute(query, user_data)
+    users_data = generate_user_data()
+    query = "INSERT INTO users (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, users_data)
     users.append(cursor.lastrowid)
 
 connexion.commit()
-print("Données générées pour la table 'user'")
-# Fonction pour générer des données aléatoires pour la table "Relations"
+print("Données générées pour la table 'users'")
+
+# Fonction pour générer des données aléatoires pour la table "relations"
 def generate_relations_data(user_ids):
     relations = ["ami", "ennemi", "connaissance"]
 
