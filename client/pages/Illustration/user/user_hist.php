@@ -10,15 +10,11 @@ if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$user_id = isset($_POST['ID_user']) ? $_POST['ID_user'] : '';
+$user_id = isset($_COOKIE['id']) ? $_COOKIE['id'] : '';
 
 if (!empty($user_id)) {
-    // on pete les parties dans lordre des id
     $queryParties = "SELECT ID_partie, win, score FROM partie_lambda WHERE ID_user = $user_id ORDER BY ID_partie ASC";
     $resultParties = mysqli_query($con, $queryParties);
-
-   
-    
 }
 
 mysqli_close($con);
@@ -74,22 +70,16 @@ mysqli_close($con);
 </style> 
 </head>
 <body>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="ID_user">Enter User ID:</label>
-        <input type="text" name="ID_user" id="ID_user" required>
-        <button type="submit">Submit</button>
-    </form>
-
     <div class="parties-container">
         <?php
         while ($rowPartie = mysqli_fetch_assoc($resultParties)) {
             $partieID = $rowPartie['ID_partie'];
             $partieWin = $rowPartie['win'] == 0 ? 'Win' : 'Loss';
             $partieScore = $rowPartie['score'];
-    
+
             echo '<div class="partie">';
             echo '<div class="info-partie">';
-            echo '<span class="partie-id">Partie ID: ' . $partieID . '</span>';
+            echo '<span class="partie-id">Partie ID: <a href="user_partie_lambda.php?partie=' . $partieID . '">' . $partieID . '</a></span>';
             echo '<span class="partie-resultat ' . ($partieWin == "Win" ? "victoire" : "defaite") . '">' . $partieWin . '</span>';
             echo '</div>';
             echo '<div class="info-partie">';
@@ -103,22 +93,22 @@ mysqli_close($con);
     <div class="pagination">
         <?php
         if (!empty($user_id)) {
-            //  nombre total de pages dependant du nombre de parties par page : pagination
+            //nombre de page par pagination
             $partiesParPage = 5;
             $nombreTotalParties = mysqli_num_rows($resultParties);
             $nombreDePages = ceil($nombreTotalParties / $partiesParPage);
 
-            // Vérification validité  page actuelle
+            // check le nombre de page
             $pageActuelle = isset($_GET['page']) ? $_GET['page'] : 1;
             if ($pageActuelle < 1 || $pageActuelle > $nombreDePages) {
                 $pageActuelle = 1;
             }
 
-            // Calcul de l'index de début / fin des parties  afficher
+            //index fin debut
             $indexDebut = ($pageActuelle - 1) * $partiesParPage;
             $indexFin = min($indexDebut + $partiesParPage - 1, $nombreTotalParties - 1);
 
-            //  liens de pagination
+            // lien de pagination
             for ($page = 1; $page <= $nombreDePages; $page++) {
                 $lienPage = $_SERVER['PHP_SELF'] . '?page=' . $page;
                 $classeActive = ($page == $pageActuelle) ? 'active' : '';
@@ -127,5 +117,17 @@ mysqli_close($con);
         }
         ?>
     </div>
+    <button onclick="redirectStats()">Affiche Tes stats mek</button>
+    <button onclick="redirectHist()">Ton historique de game</button>
+    
+
+<script>
+    function redirectStats() {
+        window.location.href = "user_stat.php";
+    }
+    function redirectHist() {
+        window.location.href = "user_hist.php";
+    }
+</script>
 </body>
 </html>
