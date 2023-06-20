@@ -14,20 +14,25 @@ $friendId = $_GET['id'];
     <title>chat</title>
 </head>
 <body>
+    <div>
+        <iframe src='<?php echo "http://localhost/towerdefense_stat_analyse/client/pages/chat/iframe.php?id=". $friendId;?>
+             ' id="iframe" title="iframe">
+        </iframe>
+    </div>
     <form method="POST" action='<?php echo "chat.php?id=". $friendId; ?>'>
         <input type="text" id="message" name="message" required maxlength="50" size="10">
-        <button type="submit">envoie</button>
+        <input type="submit" value="send"></button>
     </form>
-
+    <div id="txtHint"></div>
     <div>
         <?php 
         if (isset($_POST['message'])){
             Add_message($friendId);
         }
-        Display_chat($friendId);
         ?>
     </div>
 </body>
-
-
 </html>
+<script>
+    document.getElementById('iframe').src = document.getElementById('iframe').src
+</script>

@@ -18,6 +18,7 @@ augustin :
  -hash psswd(done)
  -chat (bien commencé)
  -demandes d'amis (en cours)
+  ->duplications des amis (a regler)
  -forum
  -redirection url
 
