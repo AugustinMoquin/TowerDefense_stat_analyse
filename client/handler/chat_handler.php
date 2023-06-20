@@ -8,7 +8,7 @@ function Add_message($friendId){
 
     $sql = "SELECT ID_discussion FROM discussion_mp WHERE (ID_user1=$id_user AND ID_user2=$friendId)OR (ID_user2=$id_user AND ID_user1=$friendId)"; //
     $result = $conn->query($sql);
-    
+
     if($row = mysqli_fetch_assoc($result)){
         $id_discussion = $row['ID_discussion'];
         $insertmbr = $conn->prepare("INSERT INTO message(ID_user, contenu, ID_discussion)  VALUES(?,?,?)");
@@ -18,8 +18,7 @@ function Add_message($friendId){
     }
 
     $conn->close();
-    $_POST['message'] = "";
-        // header("Location: /towerdef  ense_stat_analyse/client/pages/chat/chat.php");
+    unset($_POST);
 }
 ?>
 <?php

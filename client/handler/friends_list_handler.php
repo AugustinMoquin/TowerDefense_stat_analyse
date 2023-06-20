@@ -23,37 +23,37 @@ function view_friends(){
         </head>
 
         <body>";
-                if($row['ID_user1'] = $id){
+                if($row['ID_user1'] == $id){
                     $usersql = "SELECT *
                     FROM users WHERE ID_user = $ID_user2";
                     $userRes = $conn->query($usersql);
                     $userRow = mysqli_fetch_assoc($userRes);
                     echo "
                     <p>
-                        "echo '#' . $row['ID_user2']." ;
-                        <?php echo ' - '" . $userRow['user_name']." ; ?>
+                        # ". $row['ID_user2']. "
+                        - " . $userRow['user_name']."
                     </p>
 
-                    <form action='<?php echo '../chat/chat.php?id='". $row['ID_user2'] ."; ?>' method='POST'> 
-                        <input type='hidden' value='<?php echo ". $row['ID_user2'] ."; ?>' name='chat_with'>
-                        <input type='hidden' value='<?php echo " . $id_relation."; ?>' name='id_relations'>
+                    <form action='../chat/chat.php?id=". $row['ID_user2']."' method='POST'> 
+                        <input type='hidden' value='".$row['ID_user2']." name='chat_with'>
+                        <input type='hidden' value='".$id_relation."' name='id_relations'>
                         <input type='submit' value='chat with'>
                     </form>";
                 }
-                if($row['ID_user2'] = $id){
+                if($row['ID_user2'] == $id){
                     $usersql = "SELECT *
                     FROM users WHERE ID_user = $ID_user1";
                     $userRes = $conn->query($usersql);
                     $userRow = mysqli_fetch_assoc($userRes);
                     echo "
                 <p>
-                    <?php echo '#'" . $row['ID_user1']." ; ?>
-                    <?php echo ' - '" . $userRow['user_name']." ; ?>
+                    #" . $row['ID_user1']."
+                     - " . $userRow['user_name']."
                 </p>
 
-                <form action='<?php echo '../chat/chat.php?id='".$row['ID_user1'] ."; ?>' method='POST'> 
-                    <input type='hidden' value='<?php echo ". $row['ID_user1'] ."; ?>' name='chat_with'>
-                    <input type='hidden' value='<?php echo " . $id_relation."; ?>' name='id_relations'>
+                <form action='../chat/chat.php?id=".$row['ID_user1'] ."' method='POST'> 
+                    <input type='hidden' value='". $row['ID_user1'] ."' name='chat_with'>
+                    <input type='hidden' value='" . $id_relation."' name='id_relations'>
                     <input type='submit' value='chat with'>
                 </form>";
                 }

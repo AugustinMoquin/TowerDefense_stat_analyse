@@ -1,7 +1,4 @@
-<div>
-    hello
-</div>
-
+<meta http-equiv="refresh" content="2">
 
 <?php
 $conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n". $conn -> error);

@@ -28,11 +28,12 @@ $friendId = $_GET['id'];
         <?php 
         if (isset($_POST['message'])){
             Add_message($friendId);
+            unset($_POST['message']);
         }
         ?>
     </div>
 </body>
 </html>
-<script>
+<!-- <script>
     document.getElementById('iframe').src = document.getElementById('iframe').src
-</script>
+</script> -->
