@@ -123,7 +123,8 @@ tables = {
         ID_user2 INT,
         FOREIGN KEY (ID_user2) REFERENCES users(ID_user),
         timestamp TIMESTAMP
-    )"""
+    )""",
+    "insertion": """INSERT INTO discussion_mp (ID_discussion) Values (0)"""
 }
 
 
