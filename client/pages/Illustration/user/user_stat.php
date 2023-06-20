@@ -2,21 +2,17 @@
 $hostname = "localhost";
 $username = "root";
 $password = "";
-$database = "tower_defense"; 
-
+$database = "tower_defense";
 
 $con = mysqli_connect($hostname, $username, $password, $database);
-
 
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+$user_id = isset($_COOKIE['id']) ? $_COOKIE['id'] : 0;
 
-$user_id = isset($_POST['ID_user']) ? $_POST['ID_user'] : 0;
 
-
-// Requête s données user
 $query = "SELECT 
     AVG(parties_jouees) AS avg_parties_jouees,
     AVG(nombre_vagues_totales) AS avg_nombre_vagues_totales,
@@ -31,13 +27,12 @@ $query = "SELECT
 FROM partie_lambda
 WHERE ID_user = '" . mysqli_real_escape_string($con, $user_id) . "'";
 
-
 $result = mysqli_query($con, $query);
 
-// Récupdonnéesrequête
+
 $dataRow = mysqli_fetch_assoc($result);
 
-// Donné barchart
+// DATA BARCHATRT
 $dataBar = array(
     array("label" => "Parties Jouées", "y" => $dataRow['avg_parties_jouees']),
     array("label" => "Nombre de Vagues Totales", "y" => $dataRow['avg_nombre_vagues_totales']),
@@ -54,7 +49,7 @@ $dataBar = array(
 $queryPie = "SELECT win, COUNT(*) AS count FROM partie_lambda WHERE ID_user = '$user_id' GROUP BY win";
 $resultPie = mysqli_query($con, $queryPie);
 
-// Données piechart
+// DATA PIECHART
 $dataPointsPie = array();
 while ($rowPie = mysqli_fetch_assoc($resultPie)) {
     $labelPie = $rowPie['win'] == 0 ? 'Win' : 'Loss';
@@ -77,18 +72,11 @@ mysqli_close($con);
 </style>
 </head>
 <body>
-<form id="userForm" method="POST" action="">
-    <label for="ID_user">Enter User ID:</label>
-    <input type="number" id="ID_user" name="ID_user" required>
-    <button type="submit">Submit</button>
-</form>
-
 <div id="chartContainerPie" style="height: 370px; width: 100%;"></div>
 <div id="chartContainerBar" style="height: 370px; width: 100%;"></div>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-    //___________________________________________________________PieCHART____________________________________________
 window.onload = function() {
     var chartPie = new CanvasJS.Chart("chartContainerPie", {
         theme: "light2",
@@ -109,7 +97,7 @@ window.onload = function() {
             dataPoints: <?php echo json_encode($dataPointsPie, JSON_NUMERIC_CHECK); ?>
         }]
     });
-//___________________________________________________________BARCHART____________________________________________
+
     var chartBar = new CanvasJS.Chart("chartContainerBar", {
         theme: "light2",
         animationEnabled: true,
@@ -127,7 +115,7 @@ window.onload = function() {
         }]
     });
 
-    // Calcul total wins/losses
+    // Calcul du total des victoires/défaites
     var totalWins = 0;
     var totalLosses = 0;
     <?php
@@ -140,18 +128,29 @@ window.onload = function() {
     }
     ?>
 
-    // pourcentage de victoire
+    // Calcul + pourcentag
     var totalGames = totalWins + totalLosses;
     var winPercentage = (totalWins / totalGames) * 100;
     var lossPercentage = (totalLosses / totalGames) * 100;
 
-    // Pourcentage de victoire dans le titre 
+    // Ajout du pourcentage de victoire + titre
     chartPie.options.title.text += " (WinRate: " + winPercentage.toFixed(2) + "%)";
 
     chartPie.render();
     chartBar.render();
 }
 </script>
-
 </body>
+<button onclick="redirectStats()">Affiche Tes stats mek</button>
+    <button onclick="redirectHist()">Ton historique de game</button>
+    
+
+<script>
+    function redirectStats() {
+        window.location.href = "user_stat.php";
+    }
+    function redirectHist() {
+        window.location.href = "user_hist.php";
+    }
+</script>
 </html>
