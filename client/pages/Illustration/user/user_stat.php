@@ -13,7 +13,8 @@ if (!$con) {
 }
 
 
-$user_id = $_POST['ID_user'];
+$user_id = isset($_POST['ID_user']) ? $_POST['ID_user'] : 0;
+
 
 // Requête s données user
 $query = "SELECT 
@@ -28,7 +29,8 @@ $query = "SELECT
     AVG(score) AS avg_score,
     AVG(duree_jeu) AS avg_duree_jeu
 FROM partie_lambda
-WHERE ID_user = $user_id";
+WHERE ID_user = '" . mysqli_real_escape_string($con, $user_id) . "'";
+
 
 $result = mysqli_query($con, $query);
 

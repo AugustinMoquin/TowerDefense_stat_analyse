@@ -8,10 +8,10 @@ session_start();
    // exit;
 //}
 
-// Connexion à la base de données
+
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=tower_defense', 'root', '');
 
-// Opération de création (Create)
+//(Create)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_post'])) {
     $ID_user = $_POST['ID_user'];
     $ID_forum = $_POST['ID_forum'];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_post'])) {
     echo "Le post a été créé avec succès.";
 }
 
-// Opération de lecture (Read)
+//  (Read)
 $sql = "SELECT * FROM post";
 $stmt = $pdo->query($sql);
 
@@ -47,7 +47,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 echo "</table>";
 
-// Opération de mise à jour (Update)
+// (Update)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_post'])) {
     $ID_post = $_POST['ID_post'];
     $ID_user = $_POST['ID_user'];
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_post'])) {
     echo "Le post a été mis à jour avec succès.";
 }
 
-// Opération de suppression (Delete)
+// (Delete)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
     $ID_post = $_POST['ID_post'];
 
