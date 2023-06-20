@@ -6,7 +6,7 @@ $id = $_COOKIE["id"];
 
 if (isset($_POST['add_friend'])) {
     $name = $_POST['add_friend'];
-    $sql = "SELECT * FROM users WHERE ID_user != $id  AND user_name LIKE '%$name%' ";
+    $sql = "SELECT * FROM users WHERE ID_user != $id  AND user_name LIKE '%$name%'";
     $result = $conn->query($sql);
 }
 
@@ -15,14 +15,23 @@ if (isset($_POST['added'])) {
     // $req = "INSERT INTO relations (ID_user1, ID_user2, nature)
     // VALUES ($id , $friend, 'Meilleur ami pour la vie')";
 
-    $req = "INSERT INTO discussion_mp (ID_user1, ID_user2)
-    VALUES ($id , $friend)";
+    $sql = "SELECT *
+    FROM discussion_mp WHERE ID_user1 = $id OR ID_user2 = $friend;";
+    $res = $conn->query($sql);
 
-    if ($conn->query($req) === TRUE) {
-        echo "Bienvenue à toi mon khoya";
-    } else {
-        echo "Error: " . $req . "<br>" . $conn->error;
+    if(!$row = mysqli_fetch_assoc($res)) {
+        $req = "INSERT INTO discussion_mp (ID_user1, ID_user2)
+        VALUES ($id , $friend)";
+    
+        if ($conn->query($req) === TRUE) {
+            echo "Bienvenue à toi mon khoya";
+        } else {
+            echo "Error: " . $req . "<br>" . $conn->error;
+        }
+    }else{
+        echo "already friends";
     }
+
     
     $conn -> close();
 }
