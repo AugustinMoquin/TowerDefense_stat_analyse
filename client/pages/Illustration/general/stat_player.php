@@ -13,7 +13,8 @@ if (!$con) {
 }
 
 
-$user_id = isset($_POST['ID_user']) ? $_POST['ID_user'] : 0;
+$user_id = isset($_GET['ID_user']) ? $_GET['ID_user'] : 0; //recup depuis l'url via get
+
 
 
 // Requête s données user
@@ -77,16 +78,21 @@ mysqli_close($con);
 </style>
 </head>
 <body>
-<form id="userForm" method="POST" action="">
-    <label for="ID_user">Enter User ID:</label>
-    <input type="number" id="ID_user" name="ID_user" required>
-    <button type="submit">Submit</button>
-</form>
+
+
+<button onclick="goBack()">Retour aux stats de partie</button>
+    <button onclick="window.location.href='general_historique.php'">Historique G</button>
+
 
 <div id="chartContainerPie" style="height: 370px; width: 100%;"></div>
 <div id="chartContainerBar" style="height: 370px; width: 100%;"></div>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 <script>
     //___________________________________________________________PieCHART____________________________________________
 window.onload = function() {

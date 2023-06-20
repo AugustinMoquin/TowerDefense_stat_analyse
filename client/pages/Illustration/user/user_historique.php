@@ -17,7 +17,7 @@ if (!empty($user_id)) {
     $queryParties = "SELECT ID_partie, win, score FROM partie_lambda WHERE ID_user = $user_id ORDER BY ID_partie ASC";
     $resultParties = mysqli_query($con, $queryParties);
 
-    // affiche partie
+   
     
 }
 
