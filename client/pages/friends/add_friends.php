@@ -16,12 +16,14 @@
             VALUES ($id , $friend)";
         
             if ($conn->query($req) === TRUE) {
-                echo "Bienvenue à toi mon khoya";
+                $message = "ajouté";
+                echo "<script type='text/javascript'>alert('$message');</script>";
             } else {
                 echo "Error: " . $req . "<br>" . $conn->error;
             }
         }else{
-            echo "already friends";
+            $message = "déjà ton poto";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         }
 
         
@@ -37,37 +39,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../pages/assets/chat.css">
+    <link rel="stylesheet" href="../assets/add_friend.css">
     <title>add friend</title>
 </head>
 
 <body>
-    <div>
-        <form method="POST">
-            <input type="text" id="add_friend" name="add_friend" placeholder="cherche un coup" class="search">
-            <input type="submit" value="enter" class="search_button"></input>
-        </form>
-    </div>
-
-    <div>
-        <?php
-        if (isset($_POST['add_friend'])) {
-            $name = $_POST['add_friend'];
-            $sql = "SELECT * FROM users WHERE ID_user != $id  AND user_name LIKE '%$name%'";
-            $result = $conn->query($sql);
-            while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <p>
-                    <?php echo $row['user_name'] . "#" . $row['ID_user']; ?>
-                </p>
-                <form action="<?php echo "#" . $row['ID_user']; ?>" method="post">
-                    <input type='hidden' value='<?php echo $row['ID_user']; ?>' name='added'>
-                    <input type="submit" value="add friend">
-                </form>
+    <div class="master">
+            <form method="POST" class="container">
+                <input type="text" id="add_friend" name="add_friend" placeholder="cherche un coup" class="search">
+                <button type="submit" class="search-button ">&#9773;</button>
+            </form>
+        <div class="container_list_master">
+            <div class="container_list">
                 <?php
+                if (isset($_POST['add_friend'])) {
+                    $name = $_POST['add_friend'];
+                    $sql = "SELECT * FROM users WHERE ID_user != $id  AND user_name LIKE '%$name%'";
+                    $result = $conn->query($sql);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <p>
+                            <?php echo $row['user_name'] . "#" . $row['ID_user']; ?>
+                        </p>
+                        <div>
+                            <form action="<?php echo "#" . $row['ID_user']; ?>" method="post" class="container_list_item">
+                                <input type='hidden' value='<?php echo $row['ID_user']; ?>' name='added' class="item">
+                                <input type="submit" value="add" class="add-button" >
+                            </form>
+                        </div>
+                        <div class="bar" ></div>
+                        <?php
+                    }
             }
-    }
-        ?>
+                ?>
+            </div>
+        </div>
     </div>
 </body>
 
