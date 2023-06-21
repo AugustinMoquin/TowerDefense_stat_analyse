@@ -9,9 +9,10 @@ mdp password root ( php my admin) : root
 yann :
  -creation bdd et api (done)
  -generation de données(done)
- -panel admin (crud) (prochainement)
- -Représentations des données ( Fin : Partie Lambda / User_Stat) ( à voir la direction aritstique pour historique user et rank + A voir si on fait un historique général?)
-
+ -panel admin (crud) (done)  manque gestion erreur
+ -Représentations des données ( DONE ( C))
+- forum (done)
+-crud user 
 augustin :
  -login register(Fait)
  -sessions (Fait)
@@ -19,6 +20,5 @@ augustin :
  -chat (bien commencé)
  -demandes d'amis (en cours)
   ->duplications des amis (a regler)
- -forum
  -redirection url
 
