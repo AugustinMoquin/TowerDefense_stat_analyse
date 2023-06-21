@@ -1,7 +1,7 @@
 <?php
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "tower_defense";
 
 $con = mysqli_connect($hostname, $username, $password, $database);
@@ -80,61 +80,69 @@ if (isset($_GET['deleteCommentaireID'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<style>
-    .post-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        border: 2px solid violet;
-        background-color: white;
-        padding: 20px;
-    }
+    <style>
+        .post-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border: 2px solid violet;
+            background-color: white;
+            padding: 20px;
+        }
 
-    .post {
-        flex: 1;
-        margin-right: 20px;
-    }
+        .post {
+            flex: 1;
+            margin-right: 20px;
+        }
 
-    .commentaires {
-        flex: 1;
-    }
+        .commentaires {
+            flex: 1;
+        }
 
-    .post-titre {
-        font-weight: bold;
-    }
+        .post-titre {
+            font-weight: bold;
+        }
 
-    .post-contenu {
-        margin-top: 10px;
-    }
+        .post-contenu {
+            margin-top: 10px;
+        }
 
-    .post-timestamp {
-        font-style: italic;
-        margin-top: 10px;
-    }
+        .post-timestamp {
+            font-style: italic;
+            margin-top: 10px;
+        }
 
-    .commentaire {
-        margin-bottom: 10px;
-        border: 1px solid gray;
-        padding: 5px;
-    }
+        .commentaire {
+            margin-bottom: 10px;
+            border: 1px solid gray;
+            padding: 5px;
+        }
 
-    .commentaire-user {
-        font-weight: bold;
-    }
+        .commentaire-user {
+            font-weight: bold;
+        }
 
-    .commentaire-timestamp {
-        font-style: italic;
-        margin-top: 5px;
-    }
-</style> 
+        .commentaire-timestamp {
+            font-style: italic;
+            margin-top: 5px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="post-container">
         <div class="post">
-            <h2 class="post-titre"><?php echo $postTitre; ?></h2>
-            <p class="post-contenu"><?php echo $postContenu; ?></p>
-            <span class="post-timestamp"><?php echo $postTimestamp; ?></span>
+            <h2 class="post-titre">
+                <?php echo $postTitre; ?>
+            </h2>
+            <p class="post-contenu">
+                <?php echo $postContenu; ?>
+            </p>
+            <span class="post-timestamp">
+                <?php echo $postTimestamp; ?>
+            </span>
         </div>
         <div class="commentaires">
             <?php
@@ -181,4 +189,5 @@ if (isset($_GET['deleteCommentaireID'])) {
         window.location.href = "forum.php";
     }
 </script>
+
 </html>
