@@ -2,31 +2,37 @@
     margin: 0%;
 }
 
+@font-face {
+    font-family: title;
+    src: url(fonts/KungFuMaster-K7vrX.otf);
+}
+
 header {
     height: 7rem;
-    width: 100vw;
-    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 0px rgb(255, 255, 255),
-        0em 0.3em 1em rgba(0, 0, 0, 0.3);
+    width: auto;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 0px rgb(255, 255, 255), 0em 0.3em 1em rgba(0, 0, 0, 0.3);
     padding: 1rem;
     display: flex;
     flex-direction: row;
-    position: fixed;
     color: black;
-    background-color: #fbf1ff;
+    /* background-color: #fbf1ff; */
+    background-color: #694EB4;
 }
 
-.panel_admin{
+.panel_admin {
     max-width: 10rem;
-    background:repeat;
+    background: repeat;
     border: none;
 }
 
-.logo {
-    max-height: 2rem;
+.halo {
+    max-width: 5.5rem;
+    border-radius: 100%;
+    background-color: #fbf1ff;
 }
 
 img {
-    max-width: 3rem;
+    max-width: 5rem;
 }
 
 a {
@@ -40,17 +46,23 @@ a:link {
     color: black;
 }
 
+
 /* visited link */
+
 a:visited {
     color: black;
 }
 
+
 /* mouse over link */
+
 a:hover {
     color: hotpink;
 }
 
+
 /* selected link */
+
 a:active {
     color: blue;
 }
@@ -99,11 +111,39 @@ a:active {
     position: relative;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    padding: 5rem;
+    width: auto;
+    height: 100vh;
+    background: rgb(70, 69, 119);
+    background: linear-gradient(90deg, rgba(70, 69, 119, 1) 0%, rgba(88, 87, 139, 1) 13%, rgba(121, 121, 182, 1) 79%, rgba(153, 153, 154, 1) 100%);
+}
 
-.container{
-    background-image: url("assets/images/tower.png");
-    width: 100vw;
-    height: 20rem;
-    position: fixed;
-    top: 10rem;
+.image {
+    position: absolute;
+    background-image: url("images/tower.png");
+    background-repeat: no-repeat;
+    height: 50rem;
+    width: 90rem;
+    opacity: 0.9;
+}
+
+.title {
+    position: relative;
+    font-family: title, Arial;
+    color: #fbf1ff;
+    font-size: 5rem;
+    margin-left: 40%;
+    margin-top: 10%;
+    width: 15rem;
+}
+
+.text {
+    position: absolute;
+    left: 59%;
+    font-size: xx-large;
+    width: 40rem;
 }
