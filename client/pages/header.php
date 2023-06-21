@@ -12,6 +12,8 @@
             <?php
         } ?>
     </div>
+    <div class="container3"> <h1>TOWER DEFENSE</h1></div>
+
     <div class="container2">
         <div class="register_account">
             <?php if (!$_COOKIE['id']) { ?>
@@ -37,6 +39,12 @@
 </header>
 
 <style>
+
+@font-face {
+    font-family: title;
+    src: url(assets/fonts/KungFuMaster-K7vrX.otf);
+}
+
 *{
     margin:0px;
 }
@@ -54,7 +62,7 @@
 }
 
 .panel_admin {
-    max-width: 10rem;
+    max-width: 7rem;
     background: repeat;
     border: none;
 }
@@ -106,7 +114,7 @@ a:active {
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    width: 50%;
+    width: 10%;
 }
 
 .container2 {
@@ -114,8 +122,15 @@ a:active {
     flex-direction: column;
     justify-content: right;
     position: relative;
-    width: 50%;
+    width: 40%;
     justify-content: space-between;
+}
+
+.container3{
+    width: 40%;
+    font-size: 3rem;
+    font-family: title, Arial;
+    margin-right: 10%;
 }
 
 .menu {

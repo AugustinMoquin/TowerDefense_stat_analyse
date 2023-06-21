@@ -110,15 +110,58 @@ $lossesCount = $rowLossesCount['loss_count'];
 mysqli_close($con);
 
 // affiche User et Stats records
-echo "Le plus grand survivants est  " . $userMaxWaves . "  avec ({$wavesCount}  de vagues subit)<br>";
-echo "Le plus gros Sadique est " . $userMaxMonstersKilled . " avec  ({$monstersKilledCount} différents tués)<br>";
-echo "va prendre une douche  " . $userMaxGameDuration . "  t'as joué ({$gameDuration} minutes d'affilés)<br>";
-echo " En mode btp " . $userMaxTowersBuilt . "  , il a construit ({$towersBuiltCount} tours)<br>";
-echo " Le maxi juif est  " . $userMaxMoney . " avec  ({$maxMoney} de moula récolté)<br>";
-echo "Le plus gros tryhader  " . $userMaxScore . " avec  ({$maxScore} score ! RESPIRE STP)<br>";
-echo "Le plus skillé " . $userMaxWins . "  est ({$winsCount} , prend le soleil stp)<br>";
-echo "Quitte le jeu " . $userMaxLosses . "  , avec ({$lossesCount} losses t'es le plus gros looseur)<br>";
+echo " 
+<link rel='stylesheet' href='../assets/rank.css'>
+<div class='container'>
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/water.png'></img>
+        <div class='text'> Le plus grand survivants est  " . $userMaxWaves . "  avec <b>({$wavesCount}  de vagues subit)</b> <br></div>
+    </div>
+    <div class='bar'></div>
 
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/skull.png'></img>
+        <div class='text'> Le plus gros Sadique est " . $userMaxMonstersKilled . " avec  <b>({$monstersKilledCount} différents tués)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/time.png'></img>
+        <div class='text'> va prendre une douche  " . $userMaxGameDuration . "  t'as joué <b>({$gameDuration} minutes d'affilés)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/tower1.png'></img>
+        <div class='text'> En mode btp " . $userMaxTowersBuilt . "  , il a construit <b>({$towersBuiltCount} tours)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/money.png'></img>
+        <div class='text'> Le maxi juif est  " . $userMaxMoney . " avec  <b>({$maxMoney} de moula récolté)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/score.png'></img>
+        <div class='text'> Le plus gros tryhader  " . $userMaxScore . " avec <b> ({$maxScore} score ! RESPIRE STP)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/win.png'></img>
+        <div class='text'> Le plus skillé " . $userMaxWins . "  est <b>({$winsCount} , prend le soleil stp)</b><br></div>
+    </div>
+    <div class='bar'></div>
+
+    <div class='item_container'> 
+        <img class='signe' src='../assets/images/loss.png'></img>
+        <div class='text'> Quitte le jeu " . $userMaxLosses . "  , avec <b>({$lossesCount} losses t'es le plus gros looseur)</b><br></div>
+    </div>
+    <div class='bar'></div>
+</div>
+";
 ?>
 
 
