@@ -12,10 +12,10 @@ $conn = mysqli_connect("localhost", "root", 'root', "tower_defense");
     <link rel="stylesheet" href="../pages/assets/chat.css">
     <title>global chat</title>
 </head>
+
 <body>
     <div>
-        <iframe src='http://localhost/towerdefense_stat_analyse/client/pages/chat/global_iframe.php'
-            id="iframe" title="iframe">
+        <iframe src='global_iframe.php' id="iframe" title="iframe">
         </iframe>
     </div>
     <form method="POST" action='global_chat.php'>
@@ -24,14 +24,15 @@ $conn = mysqli_connect("localhost", "root", 'root', "tower_defense");
     </form>
     <div id="txtHint"></div>
     <div>
-        <?php 
-        if (isset($_POST['global_message'])){
+        <?php
+        if (isset($_POST['global_message'])) {
             Add_message_global();
             unset($_POST['global_message']);
         }
         ?>
     </div>
 </body>
+
 </html>
 <!-- <script>
     document.getElementById('iframe').src = document.getElementById('iframe').src

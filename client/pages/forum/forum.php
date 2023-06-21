@@ -1,7 +1,7 @@
 <?php
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "tower_defense";
 
 $con = mysqli_connect($hostname, $username, $password, $database);
@@ -51,35 +51,37 @@ if (isset($_POST['createPost'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<style>
-    .forum-container {
-        border: 2px solid violet;
-        background-color: white;
-        padding: 20px;
-    }
+    <style>
+        .forum-container {
+            border: 2px solid violet;
+            background-color: white;
+            padding: 20px;
+        }
 
-    .forum {
-        border-bottom: 1px solid violet;
-        padding: 10px;
-    }
+        .forum {
+            border-bottom: 1px solid violet;
+            padding: 10px;
+        }
 
-    .forum-titre {
-        font-weight: bold;
-    }
+        .forum-titre {
+            font-weight: bold;
+        }
 
-    .post {
-        margin-left: 20px;
-        padding: 5px;
-        border-left: 1px solid gray;
-        cursor: pointer;
-    }
+        .post {
+            margin-left: 20px;
+            padding: 5px;
+            border-left: 1px solid gray;
+            cursor: pointer;
+        }
 
-    .timestamp {
-        font-style: italic;
-    }
-</style> 
+        .timestamp {
+            font-style: italic;
+        }
+    </style>
 </head>
+
 <body>
     <div class="forum-container">
         <?php
@@ -173,4 +175,9 @@ if (isset($_POST['createPost'])) {
         ?>
     </div>
 </body>
+<<<<<<< HEAD
+
 </html>
+=======
+</html>
+>>>>>>> 31fe2c9abb461a0c5cf39617178e3691961e4d23

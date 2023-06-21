@@ -1,7 +1,7 @@
 <?php
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "tower_defense";
 
 $con = mysqli_connect($hostname, $username, $password, $database);
@@ -92,6 +92,7 @@ if (isset($_GET['deleteCommentaireID'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .post-container {
@@ -141,7 +142,9 @@ if (isset($_GET['deleteCommentaireID'])) {
         }
     </style>
 </head>
+
 <body>
+<<<<<<< HEAD
 <div class="post-container">
     <div class="post">
         <h2 class="post-titre"><?php echo $postTitre; ?></h2>
@@ -151,6 +154,22 @@ if (isset($_GET['deleteCommentaireID'])) {
     <div class="commentaires">
         <?php
         if ($resultComments) {
+=======
+    <div class="post-container">
+        <div class="post">
+            <h2 class="post-titre">
+                <?php echo $postTitre; ?>
+            </h2>
+            <p class="post-contenu">
+                <?php echo $postContenu; ?>
+            </p>
+            <span class="post-timestamp">
+                <?php echo $postTimestamp; ?>
+            </span>
+        </div>
+        <div class="commentaires">
+            <?php
+>>>>>>> 6981205402d807f202c7177b12c744ddf82a2d78
             while ($rowComment = mysqli_fetch_assoc($resultComments)) {
                 $commentaireID = $rowComment['ID_commentaire'];
                 $commentaireUser = $rowComment['ID_user'];
@@ -199,4 +218,5 @@ if (isset($_GET['deleteCommentaireID'])) {
     }
     f
 </script>
+
 </html>

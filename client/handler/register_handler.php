@@ -74,7 +74,7 @@ if (isset($_POST['formconnexion'])) {
             setcookie('username', $username, time() + 3600 * 24, '/', '', true, true);
             setcookie('password', $passwd, time() + 3600 * 24, '/', '', true, true);
             setcookie('id', $userinfo['ID_user'], time() + 3600 * 24, '/', '', true, true);
-            header("Location: ../pages/user/user_profile.php");
+            header("Location: ../pages/home.php");
         } else {
             $message = "ce profil n'éxiste pas";
         }
