@@ -13,7 +13,7 @@ if (!$con) {
 $user_id = isset($_COOKIE['id']) ? $_COOKIE['id'] : 3;
 $postID = $_GET['postID'];
 
-// Vérification de l'ID de l'utilisateur
+// Verif id de luser
 $queryCheckUser = "SELECT * FROM users WHERE ID_user = $user_id";
 $resultCheckUser = mysqli_query($con, $queryCheckUser);
 
@@ -32,14 +32,14 @@ $postTimestamp = $rowPost['Timestamp'];
 $queryComments = "SELECT * FROM commentaire WHERE ID_post = " . mysqli_real_escape_string($con, $postID);
 $resultComments = mysqli_query($con, $queryComments);
 
-// Création d'un nouveau commentaire
+// Créa commentaire
 if (isset($_POST['submit'])) {
     $commentaireContenu = $_POST['commentaire'];
 
-    // Insertion du nouveau commentaire dans la base de données
+    // insertion du com dans bdd
     $queryCreateCommentaire = "INSERT INTO commentaire (ID_post, ID_user, commentaire) VALUES ($postID, $user_id, '$commentaireContenu')";
     if (mysqli_query($con, $queryCreateCommentaire)) {
-        // Redirection vers la page actuelle pour afficher le nouveau commentaire
+        //refresh la page via redirection
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
     } else {
@@ -47,35 +47,35 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// Création ou mise à jour d'un commentaire
+// MAJ COM
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $commentaireID = isset($_POST['commentaireID']) ? $_POST['commentaireID'] : '';
     $commentaireContenu = isset($_POST['commentaire']) ? $_POST['commentaire'] : '';
 
-    // Vérifier si le commentaire existe déjà
+    // Vérif EXISETENCE DU COMME DEJA EXISTANT
     $queryCheckComment = "SELECT * FROM commentaire WHERE ID_commentaire = $commentaireID";
     $resultCheckComment = mysqli_query($con, $queryCheckComment);
 
     if (mysqli_num_rows($resultCheckComment) > 0) {
-        // Mise à jour du commentaire existant
+        // MAJ Si oui
         $queryUpdateCommentaire = "UPDATE commentaire SET commentaire = '$commentaireContenu' WHERE ID_commentaire = $commentaireID";
         mysqli_query($con, $queryUpdateCommentaire);
     } else {
-        // Création d'un nouveau commentaire
+        // créer dun nouveau com
         $queryCreateCommentaire = "INSERT INTO commentaire (ID_post, ID_user, commentaire) VALUES ($postID, $user_id, '$commentaireContenu')";
         mysqli_query($con, $queryCreateCommentaire);
     }
 
-    // Redirection pour éviter la soumission du formulaire lors du rechargement de la page
+    //Refresh le formulaire pour eviter doublon
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 
-// Suppression d'un commentaire
+// Supp com
 if (isset($_GET['deleteCommentaireID'])) {
     $deleteCommentaireID = $_GET['deleteCommentaireID'];
 
-    // Vérifier si l'utilisateur connecté est le propriétaire du commentaire avant de le supprimer
+    // Vverif si le user co est le proprio du com
     $queryCheckCommentOwner = "SELECT * FROM commentaire WHERE ID_commentaire = $deleteCommentaireID AND ID_user = $user_id";
     $resultCheckCommentOwner = mysqli_query($con, $queryCheckCommentOwner);
 
@@ -83,7 +83,7 @@ if (isset($_GET['deleteCommentaireID'])) {
         $queryDeleteCommentaire = "DELETE FROM commentaire WHERE ID_commentaire = $deleteCommentaireID";
         mysqli_query($con, $queryDeleteCommentaire);
 
-        // Redirection vers la page actuelle
+        // Refresh page
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
     }
@@ -161,14 +161,14 @@ if (isset($_GET['deleteCommentaireID'])) {
                 echo '<span class="commentaire-user">User ID: ' . $commentaireUser . '</span>';
 
                 if (isset($_GET['updateCommentaireID']) && $commentaireID == $_GET['updateCommentaireID']) {
-                    // Formulaire de mise à jour du commentaire
+                    // Formulaire de maj com
                     echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?postID=' . $postID . '">';
                     echo '<input type="hidden" name="commentaireID" value="' . $commentaireID . '">';
                     echo '<textarea name="commentaire" placeholder="Modifier le commentaire" required>' . $commentaireContenu . '</textarea>';
                     echo '<button type="submit">Mettre à jour</button>';
                     echo '</form>';
                 } else {
-                    // Affichage normal du commentaire
+                    // Affichage commentaire normal
                     echo '<p>' . $commentaireContenu . '</p>';
                     echo '<span class="commentaire-timestamp">' . $commentaireTimestamp . '</span>';
 
