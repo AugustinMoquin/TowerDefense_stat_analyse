@@ -5,7 +5,7 @@ import mysql.connector
 # Connexion à la base de données
 hostname = "localhost"
 username = "root"
-password = ""
+password = "root"
 database = "tower_defense"
 
 connexion = mysql.connector.connect(host=hostname, user=username, password=password, database=database)

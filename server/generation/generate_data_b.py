@@ -5,7 +5,7 @@ import mysql.connector
 # Connexion à la base de données
 hostname = "localhost"
 username = "root"
-password = ""
+password = "root"
 database = "tower_defense"
 
 connexion = mysql.connector.connect(host=hostname, user=username, password=password, database=database)
@@ -70,7 +70,7 @@ def generate_commentaire_data(user_ids, post_ids):
 users = []
 for _ in range(5):
     user_data = generate_user_data()
-    query = "INSERT INTO user (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
+    query = "INSERT INTO users (user_name, email, tel, photo_profil) VALUES (%s, %s, %s, %s)"
     cursor.execute(query, user_data)
     users.append(cursor.lastrowid)
 
