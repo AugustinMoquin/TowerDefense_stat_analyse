@@ -8,12 +8,8 @@
 <?php
 $conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n". $conn -> error);
 $id_user = $_COOKIE['id'];
-$friendId = $_GET['id'];
 
-$sql = "SELECT ID_discussion FROM discussion_mp WHERE (ID_user1=$id_user AND ID_user2=$friendId) OR (ID_user2=$id_user AND ID_user1=$friendId)"; //
-$result = $conn->query($sql);
-if($row = mysqli_fetch_assoc($result)){
-    $id_discussion = $row['ID_discussion'];
+    $id_discussion = 1;
     $sql2 = "SELECT * from message WHERE ID_discussion = $id_discussion";
     $result2 = $conn->query($sql2);
     if ($result2->num_rows > 0) {
@@ -29,7 +25,6 @@ if($row = mysqli_fetch_assoc($result)){
         echo "0 results";
         }
 
-}
-
-$conn -> close();
+    
+      $conn -> close();
 ?>

@@ -22,7 +22,7 @@ function Add_message($friendId){
 }
 ?>
 <?php
-function Display_chat($friendId){
+function Display_chat($friendId){    
     $conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n". $conn -> error);
     $id_user = $_COOKIE['id'];
 

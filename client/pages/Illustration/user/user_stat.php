@@ -1,7 +1,7 @@
 <?php
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "tower_defense";
 
 $con = mysqli_connect($hostname, $username, $password, $database);

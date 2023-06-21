@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+.master {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vw;
+    position: fixed;
+}
+
+body {
+    background-color: #110f2e;
+    margin: 0;
+    padding: 0;
+}
+
+.search-button {
+    background-color: transparent;
+    height: 3rem;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.container {
+    width: 300px;
+    height: 5rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    top: 3rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.container_list_master {
+    display: flex;
+    flex-direction: column;
+}
+
+.bar {
+    height: 2rem;
+    border-left: solid white 1px;
+}
+
+.container_list {
+    width: 10vw;
+    padding: 0.50rem;
+    align-items: center;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    display: flex;
+    gap: 3rem;
+    flex-direction: row;
+}
+
+.container_list_item {
+    margin: 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    color: white;
+    border-bottom: solid white 1px;
+}
+
+.add-button {
+    background-color: #4CAF50;
+    /* Couleur de fond du bouton */
+    color: #fff;
+    /* Couleur du texte du bouton */
+    border: none;
+    /* Suppression de la bordure */
+    padding: 10px 20px;
+    /* Espacement interne du bouton */
+    text-align: center;
+    /* Alignement du texte au centre */
+    text-decoration: none;
+    /* Suppression de la décoration du texte */
+    display: inline-block;
+    /* Affichage en tant que bloc en ligne */
+    font-size: 16px;
+    /* Taille de la police du texte */
+    border-radius: 4px;
+    /* Arrondi des coins du bouton */
+    transition: background-color 0.3s;
+    /* Transition animée pour la couleur de fond */
+    cursor: pointer;
+    /* Curseur de la souris en forme de main */
+}
+
+.add-button:hover {
+    background-color: #45a049;
+    /* Couleur de fond du bouton lorsqu'il est survolé */
+}
+
+.search {
+    width: 100vw;
+    height: 2rem;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+}
+
+.search::placeholder {
+    color: #999;
+}
