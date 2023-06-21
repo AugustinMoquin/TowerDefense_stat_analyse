@@ -1,0 +1,49 @@
+* {
+    margin: 0%;
+}
+
+.friend {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 3rem;
+    font-size: x-large;
+    border-bottom: solid rgb(84, 95, 134) 1px;
+    /* background: rgb(84, 95, 134);
+    background: linear-gradient(0deg, rgba(84, 95, 134, 1) 0%, rgba(109, 116, 140, 1) 12%, rgba(167, 167, 194, 1) 79%, rgba(255, 255, 255, 1) 100%); */
+}
+
+.name {
+    margin: 20px;
+    justify-content: center;
+}
+
+button {
+    margin: 20px;
+    outline: none;
+}
+
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    padding: 10px 25px;
+    border: 2px solid #000;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+
+/* 1 */
+
+.btn-1 {
+    transition: all 0.3s ease;
+}
+
+.btn-1:hover {
+    box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+}

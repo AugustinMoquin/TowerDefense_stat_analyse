@@ -1,4 +1,13 @@
 <meta http-equiv="refresh" content="2">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/iframe.css">
+    <title>chat</title>
+</head>
+
 <script>
         window.onload = function() {
             window.scrollTo(0, document.body.scrollHeight);
@@ -16,8 +25,13 @@ $id_user = $_COOKIE['id'];
         // output data of each row
         while($row2 = $result2->fetch_assoc()) {
             echo "
-            <div>
-                message :" . $row2['contenu']." user : ". $row2["ID_user"]. " at : " . $row2["timestamp"]."
+            <div class='user'>
+                from user : ". $row2["ID_user"]. " | at : " . $row2["timestamp"]." <br>
+                message : " . $row2['contenu']."  
+                <br>
+                <br>
+                <div class='bar'></div>
+                <br>
             </div> 
             ";
         }
