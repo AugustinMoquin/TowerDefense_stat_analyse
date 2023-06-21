@@ -1,0 +1,103 @@
+header {
+    height: 7rem;
+    width: auto;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 0px rgb(255, 255, 255), 0em 0.3em 1em rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    /* background-color: #fbf1ff; */
+    background-color: #694EB4;
+}
+
+.panel_admin {
+    max-width: 10rem;
+    background: repeat;
+    border: none;
+}
+
+.halo {
+    max-width: 5.5rem;
+    border-radius: 100%;
+    background-color: #fbf1ff;
+}
+
+img {
+    max-width: 5rem;
+}
+
+a {
+    border: solid white 1px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+a:link {
+    color: black;
+}
+
+
+/* visited link */
+
+a:visited {
+    color: black;
+}
+
+
+/* mouse over link */
+
+a:hover {
+    color: hotpink;
+}
+
+
+/* selected link */
+
+a:active {
+    color: blue;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 50%;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    position: relative;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.register_account {
+    justify-content: right;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.register {
+    float: right;
+    margin-right: 0px;
+    transform: translateX(-50%);
+    position: relative;
+}
+
+.account {
+    float: right;
+    margin-right: 0px;
+    transform: translateX(-50%);
+    position: relative;
+}

@@ -1,4 +1,8 @@
 <?php
+$rootDir = 'C:\xampp\htdocs\TowerDefense_stat_analyse\client\pages/header.php';
+require_once $rootDir;
+?>
+<?php
 $hostname = "localhost";
 $username = "root";
 $password = "root";

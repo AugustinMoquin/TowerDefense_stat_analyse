@@ -1,0 +1,8 @@
+.bar {
+    width: 60vw;
+    border-bottom: solid black 1px;
+}
+
+* {
+    background-color: rgb(232, 232, 247);
+}

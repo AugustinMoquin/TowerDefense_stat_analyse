@@ -1,4 +1,11 @@
 <?php
+
+$rootDir = 'C:\xampp\htdocs\TowerDefense_stat_analyse\client\pages/header.php';
+require_once $rootDir;
+
+?>
+
+<?php
     $conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n". $conn -> error);
     $id = $_COOKIE["id"];
 
@@ -11,7 +18,7 @@
         FROM discussion_mp WHERE ID_user1 = $id OR ID_user2 = $friend;";
         $res = $conn->query($sql);
 
-        if(!$row = mysqli_fetch_assoc($res)) {
+        if($row = mysqli_fetch_assoc($res)) {
             $req = "INSERT INTO discussion_mp (ID_user1, ID_user2)
             VALUES ($id , $friend)";
         
@@ -31,8 +38,6 @@
     }
 ?>
 
-
-
 <html lang="en">
 
 <head>
@@ -44,6 +49,7 @@
 </head>
 
 <body>
+
     <div class="master">
             <form method="POST" class="container">
                 <input type="text" id="add_friend" name="add_friend" placeholder="cherche un coup" class="search">

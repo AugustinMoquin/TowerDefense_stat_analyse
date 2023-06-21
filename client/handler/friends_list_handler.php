@@ -19,17 +19,20 @@ function view_friends(){
             <meta charset='UTF-8'>
             <meta http-equiv='X-UA-Compatible' content='IE=edge'>
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
             <title>Chat</title>
         </head>
 
-        <body>";
+        <body>
+            <div class='friend'>
+        ";
                 if($row['ID_user1'] == $id){
                     $usersql = "SELECT *
                     FROM users WHERE ID_user = $ID_user2";
                     $userRes = $conn->query($usersql);
                     $userRow = mysqli_fetch_assoc($userRes);
                     echo "
-                    <p>
+                    <p class='name'>
                         # ". $row['ID_user2']. "
                         - " . $userRow['user_name']."
                     </p>
@@ -37,7 +40,7 @@ function view_friends(){
                     <form action='../chat/chat.php?id=". $row['ID_user2']."' method='POST'> 
                         <input type='hidden' value='".$row['ID_user2']." name='chat_with'>
                         <input type='hidden' value='".$id_relation."' name='id_relations'>
-                        <input type='submit' value='chat with'>
+                        <button type='submit' value='chat with' class='custom-btn btn-1'>chat with</button>
                     </form>";
                 }
                 if($row['ID_user2'] == $id){
@@ -46,7 +49,7 @@ function view_friends(){
                     $userRes = $conn->query($usersql);
                     $userRow = mysqli_fetch_assoc($userRes);
                     echo "
-                <p>
+                <p class='name'>
                     #" . $row['ID_user1']."
                      - " . $userRow['user_name']."
                 </p>
@@ -54,10 +57,11 @@ function view_friends(){
                 <form action='../chat/chat.php?id=".$row['ID_user1'] ."' method='POST'> 
                     <input type='hidden' value='". $row['ID_user1'] ."' name='chat_with'>
                     <input type='hidden' value='" . $id_relation."' name='id_relations'>
-                    <input type='submit' value='chat with'>
+                    <input type='submit' value='chat with' class='chat'>
                 </form>";
                 }
             ?>
+            </div>
         </body>
 
         </html>

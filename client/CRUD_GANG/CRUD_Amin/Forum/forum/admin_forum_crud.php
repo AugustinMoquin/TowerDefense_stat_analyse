@@ -9,7 +9,7 @@ session_start();
 //}
 
 
-$pdo = new PDO('mysql:host=127.0.0.1;dbname=tower_defense', 'root', '');
+$pdo = new PDO('mysql:host=127.0.0.1;dbname=tower_defense', 'root', 'root');
 
 //  (Create)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_forum'])) {

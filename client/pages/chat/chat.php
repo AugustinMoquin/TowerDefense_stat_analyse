@@ -3,6 +3,12 @@ require_once("../../handler/chat_handler.php");
 $conn = new mysqli("localhost", "root", "root", "tower_defense") or die("Connect failed: %s\n" . $conn->error);
 $friendId = $_GET['id'];
 ?>
+<?php
+
+$rootDir = 'C:\xampp\htdocs\TowerDefense_stat_analyse\client\pages/header.php';
+require_once $rootDir;
+
+?>
 
 <html lang="en">
 
@@ -10,29 +16,26 @@ $friendId = $_GET['id'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../pages/assets/chat.css">
+    <link rel="stylesheet" href="../assets/chat.css">
     <title>chat</title>
 </head>
 
 <body>
-    <div>
-        <iframe src='<?php echo "iframe.php?id=" . $friendId; ?>
-             ' id="iframe" title="iframe">
-        </iframe>
+    <iframe src='<?php echo "iframe.php?id=" . $friendId; ?>
+            ' id="iframe" title="iframe" class="iframe">
+    </iframe>
+    <div class="message_container">
+        <form method="POST" action='<?php echo "chat.php?id=" . $friendId; ?>'>
+            <input type="text" id="message" name="message" class="message" required maxlength="50" size="10" placeholder="Your message">
+            <input type="submit" value="send" class="button_submit"></button>
+        </form>
     </div>
-    <form method="POST" action='<?php echo "chat.php?id=" . $friendId; ?>'>
-        <input type="text" id="message" name="message" required maxlength="50" size="10">
-        <input type="submit" value="send"></button>
-    </form>
-    <div id="txtHint"></div>
-    <div>
         <?php
         if (isset($_POST['message'])) {
             Add_message($friendId);
             unset($_POST['message']);
         }
         ?>
-    </div>
 </body>
 
 </html>
