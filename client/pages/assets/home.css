@@ -15,6 +15,20 @@ header {
     background-color: #fbf1ff;
 }
 
+.panel_admin{
+    max-width: 10rem;
+    background:repeat;
+    border: none;
+}
+
+.logo {
+    max-height: 2rem;
+}
+
+img {
+    max-width: 3rem;
+}
+
 a {
     border: solid white 1px;
     padding: 5px;
@@ -83,4 +97,13 @@ a:active {
     margin-right: 0px;
     transform: translateX(-50%);
     position: relative;
+}
+
+
+.container{
+    background-image: url("assets/images/tower.png");
+    width: 100vw;
+    height: 20rem;
+    position: fixed;
+    top: 10rem;
 }

@@ -13,13 +13,26 @@
 
     <header>
         <div class="container1">
-            <div class="logo"> logo </div>
-            <div class="panel_admin">pannel admin</div>
+            <div>
+                <a href="home.php" style="background: repeat; border:none;">
+                    <img src="assets/images/tower-svgrepo-com.png">
+                </a>
+            </div>
+            <?php if ($_COOKIE['id'] == 1) { ?>
+                <a href="../crud_gang/crud_amin/forum/admin_forum_g_crud.php" class="panel_admin">
+                    <div class="panel_admin">pannel admin</div>
+                </a>
+                <?php
+            } ?>
         </div>
         <div class="container2">
             <div class="register_account">
-                <div class="register">register - login</div>
-                <div class="account">my account</div>
+                <?php if (!$_COOKIE['id']) { ?>
+                    <div class="register">register - login</div>
+                    <?php
+                } else { ?>
+                    <div class="account">my account</div>
+                <?php } ?>
             </div>
             <div class="menu">
                 <a href="illustration/user/user_stat.php">
@@ -33,6 +46,8 @@
             </div>
         </div>
     </header>
+
+    <div class="container">aled</div>
 
     <footer>
 
